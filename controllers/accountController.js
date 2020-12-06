@@ -1,22 +1,34 @@
-const passport = require("passport");
-const getUserParams = body => {
-  return {
-      name: {
-      first: body.first,
-      last: body.last
-  },
-  email: body.email,
-  address: body.address,
-  city: body.city,
-  state: body.state,
-  password: body.password,
-  zipCode: body.zipCode
-  };
-};
+const Pool = require("../models/Pool");
+const User = require("../models/User"),
+    Customer = require("../models/Customer")
+    passport=require("passport"),
+    getUserParams = body => {
+        return {
+            name: {
+            first: body.first,
+            last: body.last
+        },
+        email: body.email,
+        password: body.password,
+        zipCode: body.zipCode
+        };
+    };
 
 module.exports = {
+    index: (req, res, next) => {
+      Customer.find()
+        .then(customers => {
+          res.locals.customers = customers;
+          next();
+        })
+        .catch(error => {
+          console.log(`Error fetching user customers: ${error.message}`);
+          next(error);
+        });
+    },
+
     indexView: (req, res) => {
-      res.render("account/index")
+        res.render('customer/index');
     },
 
     loginView: (req, res) => {
@@ -86,27 +98,45 @@ module.exports = {
         next();
       },
 
+      // Find one customer by ID
+      getCustomer: (req, res, next) => {
+        let id = req.params.id;
+        Customer.findById(id)
+            .then(customer => {
+                res.locals.customer = customer;
+                next();
+            })
+            .catch(error => {
+                console.log(`Error fetching customer: ${error.message}`);
+                next(error);
+            });
+      },
+
+      customerView: (req, res) => {
+        res.render('customer/show');
+      },
+
       // Edit a customer
       edit: (req, res, next) => {
-        let userId = req.params.id;
-        User.findById(userId)
-          .then(user => {
-            res.render("account/edit", {
-              user: user
+        let custId = req.params.id;
+        Customer.findById(custId)
+          .then(customer => {
+            res.render("customer/edit", {
+              customer: customer
             });
           })
           .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`Error fetching customer by ID: ${error.message}`);
             next(error);
           });
       },
 
       //Apply edits to customer record in databse
       update: (req, res, next) => {
-        let userId = req.params.id,
-          userParams = {
-            fName: req.body.first,
-            lName: req.body.last,
+        let custId = req.params.id,
+          customerParams = {
+            custFName: req.body.first,
+            custLName: req.body.last,
             email: req.body.email,
             phone: req.body.phone,
             address: req.body.address,
@@ -115,38 +145,38 @@ module.exports = {
             zipCode: req.body.zipCode
           };
     
-        User.findByIdAndUpdate(userId, {
-          $set: userParams
+        Customer.findByIdAndUpdate(custId, {
+          $set: customerParams
         })
-          .then(user => {
-            res.locals.redirect = `/account/${userId}`;
-            res.locals.user = user;
+          .then(customer => {
+            res.locals.redirect = `/account/customer/${custId}`;
+            res.locals.customer = customer;
             next();
           })
           .catch(error => {
-            console.log(`Error updating user by ID: ${error.message}`);
+            console.log(`Error updating customer by ID: ${error.message}`);
             next(error);
           });
       },
     
       delete: (req, res, next) => {
-        let userId = req.params.id;
-        User.findByIdAndRemove(userId)
+        let custId = req.params.id;
+        Customer.findByIdAndRemove(custId)
           .then(() => {
-            res.locals.redirect = "/account";
+            res.locals.redirect = "/account/customer";
             next();
           })
           .catch(error => {
-            console.log(`Error deleting user by ID: ${error.message}`);
+            console.log(`Error deleting customer by ID: ${error.message}`);
             next();
           });
       },
 
       //Add a new customer
-      addUser: (req, res, next) => {
-        let userParams = {
-          fName: req.body.first,
-          lName: req.body.last,
+      addCustomer: (req, res, next) => {
+        let customerParams = {
+          custFName: req.body.first,
+          custLName: req.body.last,
           email: req.body.email,
           phone: req.body.phone,
           address: req.body.address,
@@ -154,21 +184,21 @@ module.exports = {
           state: req.body.state,
           zipCode: req.body.zipCode,
         };
-        User.create(userParams)
-        .then(user => {
-          res.locals.redirect = "/account";
-          res.locals.user = user;
+        Customer.create(customerParams)
+        .then(customer => {
+          res.locals.redirect = "/account/customer";
+          res.locals.customer = customer;
           next();
         })
         .catch(error => {
-          console.log(`Error saving new user: ${error.message}`);
+          console.log(`Error saving new customer: ${error.message}`);
           next(error);
         });
       },
 
       //View the page for creating a new customer
-      addUserView: (req, res) => {
-        res.render('account/new');
+      addCustomerView: (req, res) => {
+        res.render('customer/new');
       }
       
 }
