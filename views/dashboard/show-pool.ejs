@@ -1,0 +1,54 @@
+<!-- The JS files for the charts can be found in public/dataVis-->
+<body>
+    <section class="portfolio-block block-intro" style="background: #ffffff;">
+        <h1 style="padding-bottom: 10px; padding-top: 25px;"><%= customer.custLName %> Pool Dashboard</h1>
+        <h4><%= customer.address %></h4>
+        <h4 style="padding-bottom: 15px;"><%= customer.city %>, <%= customer.state %> <%= customer.zipCode %></h4>
+        <h4 style="padding-bottom: 75px;"><%= customer.phone %></h4>
+        <div class="container">
+            <div style="border:solid;border-color:#dbdbdb;border-bottom:none;">
+                <h3 style="padding-bottom: 75px; padding-top: 25px;">Current Levels</h3>
+                <div class="row">
+                    <h3 class="col-sm">
+                        <strong>pH:</strong> <%= pool.chemReading[0].pH %>
+                    </h3>
+                    <h3 class="col-sm">
+                        <strong>Cl:</strong> <%= pool.chemReading[0].cl %>
+                    </h3>
+                    <h3 class="col-sm">
+                        <strong>Alk:</strong> <%= pool.chemReading[0].alk %>
+                    </h3>
+                </div>
+                <p>The charts below are not connected to the database yet. For now, current readings are shown above.</p>
+                <div class="row">
+                    <!-- Currently, the charts are unable to connect to live data. -->
+                    <div class="col-sm" id="ph-G" style="width:358px; height:200px;"></div>
+                    <div class="col-sm" id="cl-G" style="width:358px; height:200px;"></div>
+                    <div class="col-sm" id="alk-G" style="width:358px; height:200px;"></div>
+                </div>
+            </div>
+            <div style="border:solid;border-color:#dbdbdb;">
+                <h3 style="padding-bottom: 75px; padding-top: 25px;">Trends</h3>
+                <div class="row">
+                    <canvas id="ph-T" width="200" height="50" style="padding-left:20px; padding-right:20px;"></canvas>
+                </div>
+                <div class="row">
+                    <canvas id="cl-T" width="200" height="50" style="padding-left:20px; padding-right:20px;"></canvas>
+                </div>
+                <div class="row">
+                    <canvas id="alk-T" width="200" height="50" style="padding-left:20px; padding-right:20px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.7.2/echarts-en.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.0.0/echarts.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+<script src="/dataVis/pHGaugeMin.js"></script>
+<script src="/dataVis/alkGaugeMin.js"></script>
+<script src="/dataVis/clGaugeMin.js"></script>
+<script src="/dataVis/pHTrend.js"></script>
+<script src="/dataVis/alkTrend.js"></script>
+<script src="/dataVis/clTrend.js"></script>

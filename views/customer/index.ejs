@@ -1,0 +1,51 @@
+<main class="page lanidng-page">
+    <section class="portfolio-block block-intro" style="background: #ffffff;">
+        <div class="container">
+            <h2>Customer Table</h2>
+            <div class="center">
+                <a class="button" href="/customer/new">Add Customer</a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Zip Code</th>
+                        <th>Pool</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach(customer => { %>
+                    <tr>
+                        <td>
+                            <a href="<%= `/customer/${customer._id}` %>">
+                                <%= customer.custFName %> <%= customer.custLName %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= customer.email %>
+                        </td>
+                        <td>
+                            <%= customer.zipCode %>
+                        </td>
+                        <td>
+                            <a href="<%= `/dashboard/${customer._id}/${customer.pools[0]}` %>">View Dashboard</a>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/edit`%>">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
+                                onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

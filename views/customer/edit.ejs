@@ -1,0 +1,30 @@
+<main class="page lanidng-page">
+    <section class="portfolio-block block-intro" style="background: #ffffff;">
+        <div class="container">
+            <div class="data-form">
+                <form class="form-signin" method="POST" action="<%=`/account/customer/${customer._id}/update?_method=PUT`%>">
+                  <h2>Edit Customer:</h2>
+                  <label for="inputFirstName" style="font-size:x-large;">First Name</label>
+                  <input class="form-control" type="text" name="first" id="inputFirstName" value="<%= customer.custFName %>" placeholder="First Name" autofocus>
+                  <label for="inputLastName" style="font-size:x-large;">Last Name</label>
+                  <input class="form-control" type="text" name="last" id="inputLastName" value="<%= customer.custLName %>" placeholder="Last Name">
+                  <label for="inputEmail" style="font-size:x-large;">Email address</label>
+                  <input class="form-control" type="email" name="email" id="inputEmail" value="<%= customer.email %>" placeholder="Email Address" required>
+                  <label for="inputPhone" style="font-size:x-large;">Phone number</label>
+                  <input class="form-control" type="phone" name="phone" id="inputPhone" value="<%= customer.phone %>" placeholder="Phone Number" required>
+                  <label for="inputAddress" style="font-size:x-large;">Address</label>
+                  <input class="form-control" type="text" name="address" id="inputAddress" value="<%= customer.address %>" placeholder="Address" required>
+                  <label for="inputCity" style="font-size:x-large;">City</label>
+                  <input class="form-control" type="text" name="city" id="inputCity" value="<%= customer.city %>" placeholder="City" required>
+                  <label for="inputState" style="font-size:x-large;">State</label>
+                  <input class="form-control" type="text" name="state" id="inputState" value="<%= customer.state %>" placeholder="State" required>
+                  <label for="inputZipCode" style="font-size:x-large;">Zip Code</label>
+                  <input class="form-control" type="text" name="zipCode" id="inputZipCode" pattern="\d*" value="<%= customer.zipCode %>" placeholder="Zip Code" required>
+                  <br />
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+                </form>
+              </div>
+        </div>
+    </section>
+</main>
+
