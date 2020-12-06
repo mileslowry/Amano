@@ -1,0 +1,68 @@
+<main class="page lanidng-page">
+  <section class="portfolio-block block-intro" style="background: #ffffff;">
+    <div class="container">
+      <h1>Customer Data for
+        <%= customer.custFName %> <%= customer.custLName %>
+      </h1>
+      <div class="row">
+        <div class="col-sm">
+          <a class="button" href="/customer">View all Customers</a>
+        </div>
+        <div class="col-sm">
+          <a class="button" href="<%=`/customer/${customer._id}/edit`%>">
+            Edit Customer Details
+          </a>
+        </div>
+        <div class="col-sm">
+          <a class="button" href="<%= `/customer/${customer._id}/delete?_method=DELETE` %>"
+            onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+        </div>
+      </div>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <td>
+            <%= customer.custFName %> <%= customer.custLName %>
+          </td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>
+            <%= customer.email %>
+          </td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>
+            <%= customer.phone %>
+          </td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td>
+            <%= customer.address %>
+          </td>
+        </tr>
+        <tr>
+          <th>City</th>
+          <td>
+            <%= customer.city %>
+          </td>
+        </tr>
+        <tr>
+          <th>State</th>
+          <td>
+            <%= customer.state %>
+          </td>
+        </tr>
+        <tr>
+          <th>Zip Code</th>
+          <td>
+            <%= customer.zipCode %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
+</main>
+

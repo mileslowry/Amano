@@ -1,0 +1,18 @@
+<main class="page lanidng-page">
+    <section class="portfolio-block block-intro" style="background: #ffffff;">
+        <div class="container faq">
+            <h1>FAQ</h1>
+            </br>
+            <% questions.forEach(question => { %>
+                <div class="row faq">
+                    <strong><%= question.question %></strong>
+                </div>
+                <div class="row faq">
+                    <%= question.answer %>
+                </div>
+            </br>
+            <% }); %>
+        </div>
+    </section>
+</main>
+
