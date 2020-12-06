@@ -3,6 +3,7 @@ const router = require("express").Router(),
    
 
 router.get("/", dashboardController.indexCustomer, dashboardController.indexCustomerView);
+router.get("/:id", dashboardController.indexCustomer, dashboardController.indexCustomerView);
 router.get("/:custId/:poolId", dashboardController.getCustomer, dashboardController.getPool, dashboardController.show);
 
 module.exports = router;
