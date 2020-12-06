@@ -1,0 +1,9 @@
+Amano Project
+The Pool Boys
+Miles Lowry
+
+Progress Since Last Milestone:
+I have added in authentication, CRUD functionality, and the necessary views with minimal functionality. I have also changed the design a few times (my clients have been indecisive about branding). In addition, I created the charts and placed them into a view—they just still need to be connected to the data.
+
+Problems Encountered/Questions: 
+The biggest issue has been learning how to use Charts.js and echarts. I have used both because, although Charts.js is generally better, echarts has gauge charts, which are a necessary part of my design. Now that the charts are build and connected to a page, I face a new challenge of setting the data correctly. I will probably make the charts into functions that can be called and use jQuery and an API to get everything working properly. I also need to do some reorganization of the code—account and customer should be controlled and routed separately, I think.

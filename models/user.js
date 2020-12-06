@@ -24,15 +24,6 @@ const mongoose = require("mongoose"),
         lowercase: true,
         unique: true
       },
-      address: {
-        type: String
-      },
-      city: {
-        type: String
-      },
-      state: {
-        type: String
-      },
       zipCode: {
         type: Number,
         min: [1000, "Zip code too short"],

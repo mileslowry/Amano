@@ -5,7 +5,7 @@ const createError = require('http-errors'),
   expressSession = require("express-session"),
   connectFlash = require("connect-flash"),
   passport = require("passport"),
-  methodOverride = require("method-override"),
+  methodOverride = require("method-override");
   passportLocalMongoose = require("passport-local-mongoose"),
   logger = require('morgan'),
   layouts = require("express-ejs-layouts"),
@@ -65,6 +65,7 @@ app.use(connectFlash());
 app.use((req, res, next) => {
   res.locals.loggedIn = req.isAuthenticated();
   res.locals.currentUser = req.user;
+  console.log(req.user);
 //res.locals.flashMessages = req.flash();
   next();
 });

@@ -27,8 +27,8 @@ module.exports = {
         };
         Help.create(helpParams)
             .then(help => {
+                res.locals.redirect = "/faq";
                 res.locals.help = help;
-                res.locals.redirect = "/help/get-back-to-you-soon";
                 next();
             })
             .catch(error => {
@@ -53,9 +53,5 @@ module.exports = {
                 console.log(`Error fetching FAQ: ${error.message}`);
                 next(error);
             });
-    },
-
-    thanks: (req, res) => {
-        res.render("thanks-for-asking");
     }
 }
