@@ -11,8 +11,59 @@ const User = require("../models/User"),
       zipCode: body.zipCode
     };
   };
+  const checkBool = (value) => {
+    if (value == "true" || typeof value == 'object') {
+      return true;
+    }
+    return false;
+  };
 
 module.exports = {
+
+  index: (req, res, next) => {
+    User.find()
+      .then(users => {
+        res.locals.users = users;
+        next();
+      })
+      .catch(error => {
+        console.log(`Error fetching users: ${error.message}`);
+        next(error);
+      });
+  },
+
+  indexView: (req, res) => {
+    res.render('admin/users');
+  },
+
+  updateUsers: async (req, res) => {
+    console.log(req.body);
+    try {
+      let length = await req.body.length;
+      for (let i = 0; i < length; i++) {
+        let userId = await req.body.id[i];
+        let userParams = await {
+          name: {
+            first: req.body.first[i],
+            last: req.body.last[i]
+          },
+          email: req.body.email[i],
+          isAdmin: checkBool(req.body.admin[i])
+        };
+        await User.findByIdAndUpdate(userId, {
+          $set: userParams
+        });
+      }
+      await res.redirect("/admin/users");
+    } catch (error) {
+      await res.redirect("/admin/users");
+      console.log(error.message);
+    }
+  },
+
+  login: (req, res) => {
+    res.render("users/login");
+  },
 
   loginOrRegister: (req, res) => {
     res.render('account/login');

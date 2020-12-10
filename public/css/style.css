@@ -13,10 +13,122 @@
     font-size: 40px;
 }
 
+.block-intro {
+    background: #ffffff;
+}
+
+.screen {
+    background: rgb(214, 236, 234);
+    color: rgb(214, 236, 234);
+}
+
+.screen-content {
+    background: url('/img/tech/dashboard-placeholder.jpg'), linear-gradient(rgb(44, 64, 123) 6%, white);
+    background-size: contain, auto;
+}
+
+.keyboard {
+    color: rgb(214, 236, 234);
+    background: rgb(214, 236, 234);
+}
+
+.manage-header {
+    text-align: center;
+    font-size: 46px;
+    color: rgb(0, 0, 0);
+}
+
+.manage-content {
+    text-align: center;
+    font-size: 27px;
+    color: rgb(35, 35, 61);
+}
+
+.manage {
+    padding-top: 30px;
+}
+
+.banner-link {
+    color: rgb(210, 210, 241);
+}
+
+.amano-logo-lg {
+    width: 420px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+.login-button-main {
+    border: none;
+    padding-right: 16px;
+    margin-right: 18px;
+    width: 200px;
+    height: 65px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 30px;
+    background: #23233d;
+    color: white;
+}
+
+.register-button-main {
+    border: none;
+    width: 200px;
+    height: 65px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 30px;
+    background: #23233d;
+    color: white;
+}
+
+.active,
+.login-button-main:hover {
+    background: #28a9d1
+}
+
+.active,
+.register-button-main:hover {
+    background: #28a9d1
+}
+
+.portfolio-block {
+    padding-top: 65px;
+    border-top-style: none;
+    border-top-color: rgba(255, 255, 255, 0);
+}
+
+.dark-social {
+    background: rgb(35, 35, 61);
+    border-color: rgb(214, 236, 234);
+}
+
+.footer-link {
+    color: black;
+}
+
+.pool-bg {
+    background-color: #28a9d1;
+}
+
+.page-footer {
+    background: #ffffff;
+    padding-top: 35px;
+    border-color: rgba(33, 37, 41, 0);
+}
+
+.main-nav {
+    color: rgb(35, 35, 61);
+}
+
 .active,
 .collapsible:hover {
     background-color: #23233d;
     color: white;
+}
+
+.lanidng-page {
+    padding-top: 30px;
 }
 
 .content {
@@ -31,3 +143,42 @@
     align-content: left;
     place-content: left;
 }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 25px;
+}
+
+thead {
+    background: #28a9d1;
+    color: white;
+    font-size: large;
+}
+
+a {
+    color: #28a9d1;
+}
+
+td,
+th {
+    border: 1px solid #acacac;
+    text-align: left;
+    padding: 8px;
+}
+
+.pool-name {
+    color: rgb(35, 35, 61);
+    font-size: xx-large;
+}
+
+tr:nth-child(even) {
+    background-color: #23233d18;
+}
+
+.center-content {
+    padding: 25px;
+    justify-content: center;
+}
+

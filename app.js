@@ -34,7 +34,7 @@ app.use(layouts);
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
@@ -65,7 +65,6 @@ app.use(connectFlash());
 app.use((req, res, next) => {
   res.locals.loggedIn = req.isAuthenticated();
   res.locals.currentUser = req.user;
-  console.log(req.user);
 //res.locals.flashMessages = req.flash();
   next();
 });

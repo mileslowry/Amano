@@ -1,0 +1,34 @@
+<div class="container">
+    <h1 style="margin-top:125px;"><span>Edit Users</span></h1>
+    <form action="/admin/users/update-all" method="POST">
+        <input type="hidden" name="length" value="<%= Object.keys(users).length %>">
+        <% let i = 0 %>
+        <% users.forEach(user => { %>
+        <div id="<%= `user[${i}]` %>">
+            <br>
+            <br>
+            <h3><%= user.name.first %> <%= user.name.last %></h3>
+            <input type="hidden" name="<%= `id[${i}]` %>" value="<%= user._id %>">
+            <!-- <label for="<%= `first[${i}]` %>">First Name</label> -->
+            <input style="width:100%;" type="text" name="<%= `first[${i}]` %>" value="<%= user.name.first %>" placeholder="First Name"><br><br>
+            <!-- <label for="<%= `last[${i}]` %>">Last Name</label> -->
+            <input style="width:100%;" type="text" name="<%= `last[${i}]` %>" value="<%= user.name.last %>" placeholder="Last Name"><br><br>
+            <!-- <label for="<%= `email[${i}]` %>">Email</label> -->
+            <input style="width:100%;" type="text" name="<%= `email[${i}]` %>" value="<%= user.email %>" placeholder="Email"><br><br>
+            <label for="<%= `admin[${i}]` %>">Admin?</label>
+            <% if(user.isAdmin) { %>
+                <input type="checkbox" name="<%= `[admin][${i}]` %>" value="<%= user.isAdmin %>" checked onchange="checkBoxHandler(checkBox=this, currentValue=this.value)">
+            <% } else { %>
+                <input type="checkbox" name="<%= `[admin][${i}]` %>" value="<%= user.isAdmin %>" onchange="checkBoxHandler(checkBox=this, currentValue=this.value)">
+                <input type="hidden" name="<%= `[admin][${i}]` %>" value="false">
+            <% } %>
+            <br>
+            <br>
+            <hr>
+        </div>
+        <% i++ %>
+        <% }) %>
+        <button id="send" type="submit" class="btn btn-lg btn-primary btn-block" style="background-color:#23233d; border-color:#d6ecea;">Make Changes</button>
+    </form>
+    <script src="/js/checkBoxHandler.js"></script>
+</div>
