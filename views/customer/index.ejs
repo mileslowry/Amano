@@ -1,14 +1,22 @@
-<main class="page lanidng-page">
-    <section class="portfolio-block block-intro" style="background: #ffffff;">
-        <div class="container">
-            <h2>Customer Table</h2>
-            <div class="center">
-                <a class="button" href="/customer/new">Add Customer</a>
+<main class="page lanidng-page">  
+    <section class="portfolio-block block-intro">
+        <div style="padding-left:25px; padding-right:25px; padding-bottom:5px;" class="nav nav-tabs" role="group">
+            <button class="btn active" type="button">All Pools</button>
+            <button class="btn" type="button">Pools With Alerts</button>
+            <button class="btn" type="button">Chemicals to Bring</button>
+            <div>
+                <a class="btn" href="/customer/new">Add New Client</a>
             </div>
+        </div>
+        <div class="container">
+            <br>
+            <br>
+            <h1>All Pools</h1>
+            <br>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Client Name</th>
                         <th>Email</th>
                         <th>Zip Code</th>
                         <th>Pool</th>
@@ -46,6 +54,7 @@
                     <% }); %>
                 </tbody>
             </table>
+            <br>
         </div>
     </section>
 </main>

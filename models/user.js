@@ -29,6 +29,10 @@ const mongoose = require("mongoose"),
         min: [1000, "Zip code too short"],
         max: 99999
       },
+      isAdmin: {
+        type: Boolean,
+        default: false
+      },
       pools: [{ type: Schema.Types.ObjectId, ref: "Pool" }],
       customers: [{ type: Schema.Types.ObjectId, ref: "Customer" }]
     },

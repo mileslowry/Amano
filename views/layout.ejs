@@ -1,78 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Amano</title>
+    <title>Amano Dashboard</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
-    <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-          margin: 25px;
-        }
-        
-        td, th {
-          border: 1px solid #acacac;
-          text-align: left;
-          padding: 8px;
-        }
-
-        .pool-name {
-            color: rgb(35,35,61);
-            font-size: xx-large;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #d6ecea;
-        }
-    </style>
-</head>
-
-<body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top portfolio-navbar gradient" style="background: #6ac0bf;">
-        <div class="container-fluid"><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- <img style="background: url('/img/AmanoTransparent.png'); width:144px; height:50px; border:none; color: rgba(255,255,255,0);"> -->
-                <ul class="nav navbar-nav ml-auto">
-                    <% if (loggedIn) { %>
-                        
-                            <li class="nav-item"><a class="nav-link" href="<%= `/dashboard/${currentUser._id}` %>" style="color: rgb(35,35,61);">Dashboard</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="<%= `/account/${currentUser._id}` %>" style="color: rgb(35,35,61);">Account</a></li> -->
-                            <li class="nav-item"><a class="nav-link" href="<%=`/account/${currentUser._id}`%>" style="color: rgb(35,35,61);"><strong><%=`${currentUser.name.first} ${currentUser.name.last}`%></strong></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/account/logout" style="color: rgb(35,35,61);">Log Out</a></li>
-                        <%} else {%>
-                            <li class="nav-item"><a class="nav-link" href="/" style="color: rgb(35,35,61);">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/account/login" style="color: rgb(35,35,61);">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/account/register" style="color: rgb(35,35,61);">Register</a></li>
-                        <% } %>
-                </div>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div>
-        <%- body %>
-    </div>
-    <footer class="page-footer" style="background: #ffffff;padding-top: 35px;border-color: rgba(33,37,41,0);">
-        <div class="container">
-            <div class="links"><a href="/" style="color: rgb(0,0,0);">Amano</a><a href="/faq" style="color: rgb(0,0,0);">FAQ</a><a href="/help" style="color: rgb(0,0,0);">Help</a></div>
-            <div class="social-icons"><a href="/help" style="background: rgb(35,35,61);border-color: rgb(214,236,234);"><i class="icon ion-social-facebook" style="color: rgb(214,236,234);"></i></a><a href="#" style="background: rgb(35,35,61);border-color: rgb(214,236,234);"><i class="icon ion-social-instagram-outline" style="color: rgb(214,236,234);"></i></a>
-                <a
-                    href="#" style="background: rgb(35,35,61);border-color: rgb(214,236,234);"><i class="icon ion-social-twitter" style="color: rgb(214,236,234);"></i></a>
-            </div>
-        </div>
-    </footer>
-    <script src="/js/jquery.min.js"></script>
+    <!-- Start Script References -->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="/js/theme.js"></script>
+    
+    <!-- End Script References -->
+</head>
+
+<body>
+
+    <!-- Start Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top portfolio-navbar pool-bg">
+        <div class="container-fluid"><button data-toggle="collapse" class="navbar-toggler"
+                data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span>
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <% if (loggedIn) { %>
+                        <% if (currentUser && currentUser.isAdmin) { %>
+                            <li class="nav-item"><a class="nav-link main-nav" href="/admin/users">Amano Users</a></li>
+                            <li class="nav-item"><a class="nav-link main-nav" href="/admin/technician-view">Technician View</a></li>
+                        <% } else { %>
+                            <li class="nav-item"><a class="nav-link main-nav" href="<%= `/dashboard/${currentUser._id}` %>">Dashboard</a></li>
+                        <% } %>
+                        <li class="nav-item"><a class="nav-link main-nav" href="<%=`/account/${currentUser._id}`%>"><%=`${currentUser.name.first} ${currentUser.name.last}`%></a></li>
+                        <li class="nav-item"><a class="nav-link main-nav" href="/account/logout">Log Out</a></li>
+                    <%} else {%>
+                        <!-- If user is not looged in, show these nav items -->
+                        <li class="nav-item"><a class="nav-link main-nav" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link main-nav" href="/account/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link main-nav" href="/account/register">Register</a></li>
+                    <% } %>
+            </div>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <!-- End Navigation Bar -->
+
+    <!-- Start Main Content -->
+    <div>
+        <%- body %>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Start Footer -->
+    <footer class="page-footer footer-link">
+        <div class="container">
+            <div class="links"><a href="/">Amano</a><a href="/faq">FAQ</a><a href="/help">Help</a></div>
+            <div class="social-icons"><a href="/help"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                        class="icon ion-social-instagram-outline"></i></a>
+                <a href="#"><i class="icon ion-social-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
 </body>
 
 </html>
