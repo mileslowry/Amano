@@ -3,10 +3,10 @@ const router = require("express").Router(),
   homeRoutes = require("./homeRoutes"),
   customerRoutes = require("./customerRoutes"),
   dashboardRoutes = require("./dashboardRoutes"),
-  adminRoutes = require("./adminRoutes");
-  // apiRoutes = require("./apiRoutes");
+  adminRoutes = require("./adminRoutes"),
+  apiRoutes = require("./apiRoutes");
   
-// router.use("/api", apiRoutes);
+router.use("/api", apiRoutes);
 router.use("/admin", adminRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/account", accountRoutes);

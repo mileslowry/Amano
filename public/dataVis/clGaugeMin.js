@@ -52,7 +52,7 @@ var clOption = {
     ]
 };
 
-setInterval(function () {
-    clOption.series[0].data[0].value = (Math.random() * 4).toFixed(1) - 0;
-    clGauge.setOption(clOption, true);
-},2000);
+// setInterval(function () {
+//     clOption.series[0].data[0].value = (Math.random() * 4).toFixed(1) - 0;
+//     clGauge.setOption(clOption, true);
+// },2000);

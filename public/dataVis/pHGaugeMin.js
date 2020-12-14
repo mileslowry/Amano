@@ -52,7 +52,7 @@ var phOption = {
     ]
 };
 
-setInterval(function () {
-    phOption.series[0].data[0].value = (Math.random() * (8 - 7) + 7).toFixed(1) - 0;
-    pHGauge.setOption(phOption, true);
-}, 2000);
+// setInterval(function () {
+//     phOption.series[0].data[0].value = (Math.random() * (8 - 7) + 7).toFixed(1) - 0;
+//     pHGauge.setOption(phOption, true);
+// }, 2000);
