@@ -1,25 +1,42 @@
+
 <main class="page lanidng-page">
     <section class="portfolio-block block-intro" style="background: #ffffff;">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">All Pools</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/alerts">Pools with Alerts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard/chemicals-to-bring">Chemicals to Bring</a>
+        </li>
+        <li class="nav-item">
+          <a href="/customer/new" class="nav-link active">Add New Client</a>
+        </li>
+      </ul>
         <div class="container">
             <div class="data-form">
                 <form class="form-signin" method="POST" action="<%=`/customer/create` %>">
-                  <h2>Add Customer</h2>
-                  <label for="inputFirstName" style="font-size:x-large;">First Name</label>
+                  <h2>Add Client</h2>
+                  <br />
+                  <!-- <label for="inputFirstName" style="font-size:x-large;">First Name</label> -->
                   <input class="form-control" type="text" name="first" id="inputFirstName" placeholder="First Name" autofocus>
-                  <label for="inputLastName" style="font-size:x-large;">Last Name</label>
+                  <!-- <label for="inputLastName" style="font-size:x-large;">Last Name</label> -->
                   <input class="form-control" type="text" name="last" id="inputLastName" placeholder="Last Name">
-                  <label for="inputEmail" style="font-size:x-large;">Email address</label>
+                  <!-- <label for="inputEmail" style="font-size:x-large;">Email address</label> -->
                   <input class="form-control" type="email" name="email" id="inputEmail" placeholder="Email Address" required>
-                  <label for="inputPhone" style="font-size:x-large;">Phone Number</label>
+                  <!-- <label for="inputPhone" style="font-size:x-large;">Phone Number</label> -->
                   <input class="form-control" type="phone" name="phone" id="inputPhone" placeholder="Phone Number" required>
-                  <label for="inputAddress" style="font-size:x-large;">Address</label>
+                  <!-- <label for="inputAddress" style="font-size:x-large;">Address</label> -->
                   <input class="form-control" type="text" name="address" id="inputAddress" placeholder="Address" required>
-                  <label for="inputCity" style="font-size:x-large;">City</label>
+                  <!-- <label for="inputCity" style="font-size:x-large;">City</label> -->
                   <input class="form-control" type="text" name="city" id="inputCity" placeholder="City" required>
-                  <label for="inputState" style="font-size:x-large;">State</label>
+                  <!-- <label for="inputState" style="font-size:x-large;">State</label> -->
                   <input class="form-control" type="text" name="state" id="inputState" placeholder="State" required>
-                  <label for="inputZipCode" style="font-size:x-large;">Zip Code</label>
+                  <!-- <label for="inputZipCode" style="font-size:x-large;">Zip Code</label> -->
                   <input class="form-control" type="text" name="zipCode" id="inputZipCode" pattern="\d*" placeholder="Zip Code" required>
+                  <input type="hidden" name="technician" value="<%= currentUser._id %>">
                   <br />
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
                 </form>

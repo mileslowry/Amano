@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "chart.js": "^2.9.4",
@@ -21,5 +21,8 @@
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

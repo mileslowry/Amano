@@ -1,3 +1,4 @@
+const { findByIdAndUpdate } = require("../models/Customer");
 const Customer = require("../models/Customer");
 
 
@@ -107,13 +108,14 @@ module.exports = {
           email: req.body.email,
           phone: req.body.phone,
           address: req.body.address,
-          city: req.body.city,
+          city: req.body.city,  
           state: req.body.state,
           zipCode: req.body.zipCode,
+          technician: req.user._id
         };
         Customer.create(customerParams)
         .then(customer => {
-          res.locals.redirect = "/customer";
+          res.locals.redirect = "/dashboard";
           res.locals.customer = customer;
           next();
         })
@@ -122,6 +124,24 @@ module.exports = {
           next(error);
         });
       },
+
+      // clientCustomerRelationship: (req, res, next) => {
+      //   let user = req.user;
+      //   let newCustomer = {
+      //     customers: customer._id
+      //   }
+      //   console.log(user);
+      //   User.findByIdAndUpdate(user._id, {$addToSet: newCustomer})
+      //   .then(customer => {
+      //     res.locals.redirect = "/dashboard";
+      //     res.locals.customer = customer;
+      //     next();
+      //   })
+      //   .catch(error => {
+      //     console.log(`Error adding client to user account: ${error.message}`);
+      //     next(error);
+      //   });
+      // },
     
       //View the page for creating a new customer
       addCustomerView: (req, res) => {

@@ -45,7 +45,30 @@ const customerSchema = new mongoose.Schema({
   dateJoined: {
     type: Date
   },
+  technician: {
+    type: Schema.Types.ObjectId
+  },
   pools: [{ type: Schema.Types.ObjectId, ref: "Pool" }]
 });
+
+customerSchema.plugin(passportLocalMongoose);
+ 
+customerSchema.pre("save", function(next) {
+  let user = this.technician;
+  let newCustomer = {
+    customers: this._id
+  };
+  User.findOneAndUpdate({_id: user}, {
+    $addToSet: newCustomer
+  })
+    .then(
+      next()
+    )
+    .catch(error => {
+      console.log(`Error in connecting user :${error.message}`);
+      next(error);
+      });
+  } 
+);
 
 module.exports = mongoose.model("Customer", customerSchema, "Customer");
