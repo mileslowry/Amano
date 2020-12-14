@@ -4,9 +4,11 @@ const router = require("express").Router(),
   customerRoutes = require("./customerRoutes"),
   dashboardRoutes = require("./dashboardRoutes"),
   adminRoutes = require("./adminRoutes"),
+  messageRoutes = require("./messageRoutes"),
   apiRoutes = require("./apiRoutes");
   
 router.use("/api", apiRoutes);
+router.use("/message", messageRoutes);
 router.use("/admin", adminRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/account", accountRoutes);

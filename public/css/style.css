@@ -60,12 +60,9 @@
 
 .login-button-main {
     border: none;
-    padding-right: 16px;
     margin-right: 18px;
     width: 200px;
     height: 65px;
-    padding-top: 6px;
-    padding-bottom: 6px;
     font-size: 30px;
     background: #23233d;
     color: white;
@@ -75,8 +72,6 @@
     border: none;
     width: 200px;
     height: 65px;
-    padding-top: 6px;
-    padding-bottom: 6px;
     font-size: 30px;
     background: #23233d;
     color: white;
@@ -89,6 +84,17 @@
 
 .active,
 .register-button-main:hover {
+    background: #28a9d1
+}
+
+.btn-amano {
+    border: none;
+    background: #23233d;
+    color: white;
+}
+
+.active,
+.btn-amano:hover {
     background: #28a9d1
 }
 

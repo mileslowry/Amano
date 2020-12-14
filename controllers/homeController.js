@@ -1,4 +1,3 @@
-const Help = require("../models/Help");
 const FAQ = require("../models/FAQ");
 
 module.exports = {
@@ -16,25 +15,6 @@ module.exports = {
 
     faqView: (req, res) => {
         res.render("faq");
-    },
-    
-    // Insert new help request into database
-    getHelp: (req, res, next) => {
-        let helpParams = {
-            subject: req.body.subject,
-            email: req.body.email,
-            message: req.body.message
-        };
-        Help.create(helpParams)
-            .then(help => {
-                res.locals.redirect = "/faq";
-                res.locals.help = help;
-                next();
-            })
-            .catch(error => {
-                console.log(`Error sending help request: ${error.message}`);
-                next(error);
-            });
     },
 
     redirectView: (req, res, next) => {

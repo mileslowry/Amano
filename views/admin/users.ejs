@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 style="margin-top:125px;"><span>Edit Users</span></h1>
+    <h1 style="margin-top:125px;"><span>Edit Technicians</span></h1>
     <form action="/admin/users/update-all" method="POST">
         <input type="hidden" name="length" value="<%= Object.keys(users).length %>">
         <% let i = 0 %>
@@ -28,7 +28,7 @@
         </div>
         <% i++ %>
         <% }) %>
-        <button id="send" type="submit" class="btn btn-lg btn-primary btn-block" style="background-color:#23233d; border-color:#d6ecea;">Make Changes</button>
+        <button id="send" type="submit" class="btn btn-lg btn-primary btn-block btn-amano">Make Changes</button>
     </form>
     <script src="/js/checkBoxHandler.js"></script>
 </div>

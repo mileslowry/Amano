@@ -31,8 +31,10 @@
                 <ul class="nav navbar-nav ml-auto">
                     <% if (loggedIn) { %>
                     <% if (currentUser && currentUser.isAdmin) { %>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/admin/users">Amano Users</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/admin/technician-view">Technician View</a>
+                    <li class="nav-item"><a class="nav-link main-nav" href="<%= `/dashboard/${currentUser._id}` %>">Dashboard</a>
+                    <li class="nav-item"><a class="nav-link main-nav" href="/admin/users">Amano Technicians</a></li>
+                    <li class="nav-item"><a class="nav-link main-nav" href="/customer">All Clients</a></li>
+                    <li class="nav-item"><a class="nav-link main-nav" href="/customer">Tickets (<%= %>)</a></li>
                     </li>
                     <% } else { %>
                     <li class="nav-item"><a class="nav-link main-nav"
@@ -43,7 +45,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/account/logout">Log Out</a></li>
                     <%} else {%>
-                    <!-- If user is not looged in, show these nav items -->
+                    <!-- If user is not logged in, show these nav items -->
                     <li class="nav-item"><a class="nav-link main-nav" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/account/login">Login</a></li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/account/register">Register</a></li>
