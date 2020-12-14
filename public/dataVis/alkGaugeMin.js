@@ -54,7 +54,7 @@ var alkOption = {
     ]
 };
 
-setInterval(function () {
-    alkOption.series[0].data[0].value = (Math.random() * (125 - 75) + 75).toFixed(1) - 0;
-    alkGauge.setOption(alkOption, true);
-},2000);
+// setInterval(function () {
+//     alkOption.series[0].data[0].value = (Math.random() * (125 - 75) + 75).toFixed(1) - 0;
+//     alkGauge.setOption(alkOption, true);
+// },2000);

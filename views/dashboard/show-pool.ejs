@@ -11,18 +11,6 @@
                 <div style="border:solid;border-color:#dbdbdb;border-bottom:none;">
                     <h3 style="padding-bottom: 75px; padding-top: 25px;">Current Levels</h3>
                     <div class="row">
-                        <h3 class="col-sm">
-                            <strong>pH:</strong> <%= pool.chemReading[0].pH %>
-                        </h3>
-                        <h3 class="col-sm">
-                            <strong>Cl:</strong> <%= pool.chemReading[0].cl %>
-                        </h3>
-                        <h3 class="col-sm">
-                            <strong>Alk:</strong> <%= pool.chemReading[0].alk %>
-                        </h3>
-                    </div>
-                    <p>The charts below are not connected to the database yet. For now, current readings are shown above.</p>
-                    <div class="row">
                         <!-- Currently, the charts are unable to connect to live data. -->
                         <div class="col-sm" id="ph-G" style="width:358px; height:200px;"></div>
                         <div class="col-sm" id="cl-G" style="width:358px; height:200px;"></div>
@@ -58,3 +46,8 @@
 <script src="/dataVis/pHTrend.js"></script>
 <script src="/dataVis/alkTrend.js"></script>
 <script src="/dataVis/clTrend.js"></script>
+<script src="/js/buildDashboard.js"></script>
+<!-- <script type="text/javascript">
+    const queryString = window.location.search;
+    console.log(queryString);
+</script> -->
