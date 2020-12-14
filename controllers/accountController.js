@@ -1,4 +1,4 @@
-const User = require("../models/User"),
+const User = require("../models/Account"),
   passport = require("passport"),
   getUserParams = body => {
     return {

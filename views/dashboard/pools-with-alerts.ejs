@@ -1,0 +1,66 @@
+<main class="page lanidng-page">
+    <section class="portfolio-block block-intro">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">All Pools</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard/alerts">Pools with Alerts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/chemicals-to-bring">Chemicals to Bring</a>
+            </li>
+            <li class="nav-item">
+                <a href="/customer/new" class="nav-link">Add New Client</a>
+            </li>
+        </ul>
+        <div class="container">
+            <br>
+            <br>
+            <h1>Pools with Alerts</h1>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Email</th>
+                        <th>Zip Code</th>
+                        <th>Pool</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach(customer => { %>
+                    <tr>
+                        <td>
+                            <a href="<%= `/customer/${customer._id}` %>">
+                                <%= customer.custFName %> <%= customer.custLName %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= customer.email %>
+                        </td>
+                        <td>
+                            <%= customer.zipCode %>
+                        </td>
+                        <td>
+                            <a href="<%= `/dashboard/${customer._id}/${customer.pools[0]}` %>">View Dashboard</a>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/edit`%>">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
+                                onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </section>
+</main>

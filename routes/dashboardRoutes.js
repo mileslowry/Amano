@@ -2,8 +2,13 @@ const router = require("express").Router(),
     dashboardController= require("../controllers/dashboardController");
    
 
-router.get("/", dashboardController.indexCustomer, dashboardController.indexCustomerView);
-router.get("/:id", dashboardController.indexCustomer, dashboardController.indexCustomerView);
+router.get("/", dashboardController.indexCustomers);
+router.get("/alerts", dashboardController.indexCustomerAlerts, dashboardController.indexCustomerAlertsView);
+router.get("/chemicals-to-bring", dashboardController.chemicalsToBring);
+router.get("/:id", dashboardController.indexCustomers);
+router.get("/:custId/add-pool", dashboardController.getCustomer, dashboardController.addPoolView);
+router.post("/:custId/add-pool", dashboardController.addPool, dashboardController.redirectView);
 router.get("/:custId/:poolId", dashboardController.getCustomer, dashboardController.getPool, dashboardController.show);
 
 module.exports = router;
+ 

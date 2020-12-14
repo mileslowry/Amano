@@ -4,6 +4,7 @@ const router = require("express").Router(),
 router.get("/", customerController.index, customerController.indexView);
 router.get("/new", customerController.addCustomerView);
 router.post("/create", customerController.addCustomer, customerController.redirectView);
+// router.post("/add-client", customerController.clientCustomerRelationship, customerController.redirectView);
 router.get("/:id", customerController.getCustomer, customerController.customerView);
 router.get("/:id/edit", customerController.edit);
 router.put("/:id/update", customerController.update, customerController.redirectView);

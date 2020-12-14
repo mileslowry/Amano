@@ -1,10 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-  { Schema } = mongoose,
-  Pool = require("./Pool"),
-  Customer = require("./Customer"),
-  //bcrypt = require("bcrypt"),
+  {Schema} = mongoose,
   passportLocalMongoose = require("passport-local-mongoose"),
   userSchema = new Schema(
     {
@@ -33,7 +30,6 @@ const mongoose = require("mongoose"),
         type: Boolean,
         default: false
       },
-      pools: [{ type: Schema.Types.ObjectId, ref: "Pool" }],
       customers: [{ type: Schema.Types.ObjectId, ref: "Customer" }]
     },
     {
@@ -74,4 +70,4 @@ userSchema.plugin(passportLocalMongoose, {
   usernameField: "email"
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema, "users");

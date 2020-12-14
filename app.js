@@ -10,7 +10,7 @@ const createError = require('http-errors'),
   logger = require('morgan'),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
-  User = require("./models/User"),
+  User = require("./models/Account"),
   Routes = require("./routes/index");
 
 mongoose.connect(
