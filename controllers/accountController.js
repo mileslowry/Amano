@@ -11,12 +11,12 @@ const User = require("../models/Account"),
       zipCode: body.zipCode
     };
   };
-  const checkBool = (value) => {
-    if (value == "true" || typeof value == 'object') {
-      return true;
-    }
-    return false;
-  };
+const checkBool = (value) => {
+  if (value == "true" || typeof value == 'object') {
+    return true;
+  }
+  return false;
+};
 
 module.exports = {
 
@@ -59,6 +59,26 @@ module.exports = {
       await res.redirect("/admin/users");
       console.log(error.message);
     }
+  },
+
+  update: async (req, res) => {
+    try {
+      let id = await req.params.id;
+      let userParams = {
+        name: {
+          first: req.body.first,
+          last: req.body.last
+        },
+        email: req.body.email
+      };
+      await User.findByIdAndUpdate(id, {
+        $set: userParams
+      });
+      await res.redirect(`/account/${id}`);
+    } catch (error) {
+      res.render(error);
+      console.log(error);
+    };
   },
 
   login: (req, res) => {
@@ -138,5 +158,22 @@ module.exports = {
 
   viewAccount: (req, res) => {
     res.render("account/index");
+  },
+
+  editAccountView: (req, res) => {
+    res.render("account/edit");
+  },
+
+  delete: (req, res, next) => {
+    let userId = req.params.id;
+    User.findByIdAndRemove(userId)
+      .then(() => {
+        res.locals.redirect = "/";
+        next();
+      })
+      .catch(error => {
+        console.log(`Error deleting account: ${error.message}`);
+        next();
+      });
   }
 }

@@ -1,5 +1,5 @@
 const Help = require("../models/Help");
-const dateFormat = require("date-format");
+const dateFormat = require("dateformat");
 
 module.exports = {
     messageSentView: (req, res) => {
@@ -56,7 +56,7 @@ module.exports = {
         Help.findByIdAndUpdate(id, {$set: {dateResolved: new Date(), notes: req.body.notes}}, {new: true})
         .then((result) => {
             console.log(result);
-            res.redirect("/admin/tickets");
+            res.redirect("/admin/message");
         }) .catch((err) => {
             next(err);
         });

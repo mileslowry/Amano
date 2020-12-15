@@ -1,22 +1,80 @@
 <main class="page lanidng-page">
-    <section class="portfolio-block block-intro" style="background: #ffffff;">
-        <h1><%= currentUser.name.first %>'s Dashboard</h1>
+    <section class="portfolio-block block-intro">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">All Pools</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/alerts">Pools with Alerts</a>
+            </li>
+            <!-- WILL BE PART OF LATER VERSION: -->
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="/dashboard/chemicals-to-bring">Chemicals to Bring</a>
+            </li> -->
+            <li class="nav-item">
+                <a href="/customer/new" class="nav-link">Add New Client</a>
+            </li>
+        </ul>
         <div class="container">
-            <table style="border-radius:12;">
-                <tr>
-                    <th colspan="3"><a href="/dashboard/show" class="pool-name">Maxwell Pool</a></th>
-                </tr>
-                <tr>
-                  <th>pH</th>
-                  <th>Cl</th>
-                  <th>Alk</th>
-                </tr>
-                <tr>
-                  <td>7.1</td>
-                  <td>2.8 ppm</td>
-                  <td>110 ppm</td>
-                </tr>
+            <br>
+            <br>
+            <h1>All Pools</h1>
+            <br>
+            <% let numCustomers = Object.keys(customers).length %>
+            <% if (numCustomers > 0) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Email</th>
+                        <th>Zip Code</th>
+                        <th>Pool</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach(customer => { %>
+                    <tr>
+                        <td>
+                            <a href="<%= `/customer/${customer._id}` %>">
+                                <%= customer.custFName %> <%= customer.custLName %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= customer.email %>
+                        </td>
+                        <td>
+                            <%= customer.zipCode %>
+                        </td>
+                        <td>
+                            <% let poolLength = Object.keys(customer.pools).length - 1%>
+                            <% if (customer.pools[poolLength] != undefined) { %>
+                            <a href="<%= `/dashboard/${customer._id}/${customer.pools[poolLength]}` %>">View
+                                Dashboard</a>
+                            <% } else { %>
+                            <a href="<%= `/dashboard/${customer._id}/add-pool` %>">Add Pool</a>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/edit`%>">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
+                                onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+
+                </tbody>
             </table>
+            <% } else { %>
+            <p>Hmmm... Couldn't find any clients.</p>
+            <a href="<%= `/customer/new` %>" class="btn btn-lg btn-primary btn-amano">Add a Client</a>
+            <% } %>
+            <br>
         </div>
     </section>
 </main>

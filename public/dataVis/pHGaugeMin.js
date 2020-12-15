@@ -47,7 +47,7 @@ var phOption = {
                     ]
                 }
             },
-            data: [{ value: 8, name: 'pH' }]
+            data: [{ value: 8, name: 'pH' }] 
         }
     ]
 };

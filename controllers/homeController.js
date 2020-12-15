@@ -33,5 +33,5 @@ module.exports = {
                 console.log(`Error fetching FAQ: ${error.message}`);
                 next(error);
             });
-    }
+    },
 }

@@ -7,6 +7,7 @@
             <li class="nav-item">
                 <a class="nav-link active" href="/dashboard/alerts">Pools with Alerts</a>
             </li>
+            <!-- WILL BE PART OF LATER VERSION: -->
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard/chemicals-to-bring">Chemicals to Bring</a>
             </li>
@@ -19,9 +20,12 @@
             <br>
             <h1>Pools with Alerts</h1>
             <br>
+            <% let numCustomers = Object.keys(customers).length %>
+            <% if (numCustomers > 0) { %>
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Alert</th>
                         <th>Client Name</th>
                         <th>Email</th>
                         <th>Zip Code</th>
@@ -32,34 +36,49 @@
                 </thead>
                 <tbody>
                     <% customers.forEach(customer => { %>
-                    <tr>
-                        <td>
-                            <a href="<%= `/customer/${customer._id}` %>">
-                                <%= customer.custFName %> <%= customer.custLName %>
-                            </a>
-                        </td>
-                        <td>
-                            <%= customer.email %>
-                        </td>
-                        <td>
-                            <%= customer.zipCode %>
-                        </td>
-                        <td>
-                            <a href="<%= `/dashboard/${customer._id}/${customer.pools[0]}` %>">View Dashboard</a>
-                        </td>
-                        <td>
-                            <a href="<%=`/customer/${customer._id}/edit`%>">
-                                Edit
-                            </a>
-                        </td>
-                        <td>
-                            <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
+                        <% let customerPoolIndex = alerts.findIndex(alerts => String(alerts.poolId) == String(customer.pools[0])); %>
+                        <% let currentAlerts = alerts[customerPoolIndex] %>
+                        <% if (customerPoolIndex != -1 && (currentAlerts.pHAlert != "Green" || currentAlerts.clAlert != "Green" || currentAlerts.alkAlert != "Green")) { %> 
+                        <tr>
+                            <td> 
+                                <strong>
+                                    <%= currentAlerts.pHAlert === "Low" ? "PH IS LOW! " : "" %> <%= currentAlerts.pHAlert === "High" ? "PH IS HIGH! " : "" %>
+                                    <%= currentAlerts.clAlert === "Low" ? "CL IS LOW! " : "" %> <%= currentAlerts.clAlert === "High" ? "CL IS HIGH! " : "" %>
+                                    <%= currentAlerts.alkAlert === "Low" ? "ALK IS LOW! " : "" %> <%= currentAlerts.alkAlert === "High" ? "ALK IS HIGH! " : "" %>
+                                </strong>
+                            </td>
+                            <td>
+                                <a href="<%= `/customer/${customer._id}` %>">
+                                    <%= customer.custFName %> <%= customer.custLName %>
+                                </a>
+                            </td>
+                            <td>
+                                <%= customer.email %>
+                            </td>
+                            <td>
+                                <%= customer.zipCode %>
+                            </td>
+                            <td>
+                                <a href="<%= `/dashboard/${customer._id}/${customer.pools[0]}` %>">View Dashboard</a>
+                            </td>
+                            <td>
+                                <a href="<%=`/customer/${customer._id}/edit`%>">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
                                 onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <% } %>
                     <% }); %>
                 </tbody>
             </table>
+            <% } else { %>
+                <p>Hmmm... Couldn't find any clients.</p>
+                <a href="<%= `/customer/new` %>" class="btn btn-lg btn-primary btn-amano">Add a Client</a>
+            <% } %>
             <br>
         </div>
     </section>

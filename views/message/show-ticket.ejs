@@ -1,0 +1,24 @@
+<main class="page lanidng-page">
+    <section class="portfolio-block block-intro" style="background: #ffffff;">
+        <div class="container">
+            <br />
+            <h1><span>Resolve Ticket</span></h1>
+            <form action="/admin/message/<%= ticket._id %>/update" method="post">
+                <div class="disabled">
+                    <input style="width:100%;" type="text" name="subject" id="subject" placeholder="subject" disabled="disabled"
+                        value="<%= ticket.subject %>"><br /><br />
+                    <input style="width:100%;" type="email" name="email" id="email" placeholder="email" disabled="disabled"
+                        value="<%= ticket.email %>"><br /><br />
+                    <textarea style="width:100%;" name="message" id="message" placeholder="MESSAGE" required
+                        disabled="disabled"><%= ticket.message %></textarea>
+                    <hr />
+                </div>
+                <textarea style="width:100%; height: 20%;" name="notes" id="notes" placeholder="Ticket Notes" required></textarea><br /><br />
+                <input type="hidden" name="id" id="id" value="<%= ticket._id %>">
+
+                <input type="submit" name="send" id="send" class="btn btn-lg btn-primary btn-block btn-amano" value="Resolve">
+
+            </form>
+        </div>
+    </section>
+</main>

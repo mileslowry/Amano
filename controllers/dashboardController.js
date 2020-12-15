@@ -26,6 +26,66 @@ module.exports = {
             });
     },
 
+    indexPools: (req, res, next) => {
+        let alerts = [];
+        let pHAlert;
+        let clAlert;
+        let alkAlert;
+        Pool.find()
+        .then(pools => {
+            pools.forEach(pool => {
+                let numReadings = Object.keys(pool.chemReading).length;
+
+                if (pool.chemReading.length != 0) {
+                    let pHRead = pool.chemReading[numReadings - 1].pH;
+                    let clRead = pool.chemReading[numReadings - 1].cl;
+                    let alkRead = pool.chemReading[numReadings - 1].alk;
+    
+                    if (pHRead < 7.4) {
+                        pHAlert = "Low";
+                    } else if (pHRead > 7.6) {
+                        pHAlert = "High";
+                    } else {
+                        pHAlert = "Green";
+                    };
+    
+                    if (clRead <= 1) {
+                        clAlert = "Low";
+                    } else if (clRead >= 3) {
+                        clAlert = "High";
+                    } else {
+                        clAlert = "Green";
+                    };
+    
+                    if (alkRead < 90) {
+                        alkAlert = "Low";
+                    } else if (alkRead > 110) {
+                        alkAlert = "High";
+                    } else {
+                        alkAlert = "Green";
+                    };
+    
+                    alerts.push({
+                        pHAlert: pHAlert,
+                        clAlert: clAlert,
+                        alkAlert: alkAlert,
+                        poolId: pool._id
+                    })
+                };          
+            });
+            res.locals.alerts = alerts;
+            next();
+        })
+        .catch(error => {
+            console.log(error);
+            next(error);
+        })
+    },
+
+    filterForAlerts: (req, res, next) => {
+        
+    },
+
     respondJSON: (req, res) => {
         res.json({
             status: httpStatus.OK,
@@ -91,8 +151,7 @@ module.exports = {
         let currentUser = req.user;
         try {
             let customers = await User.findById(currentUser._id, "customers").populate("customers");
-            console.log(customers);
-            res.render('customer/index', {
+            res.render('dashboard/index', {
                 customers: customers.customers
             });
         } catch (error) {
@@ -100,31 +159,26 @@ module.exports = {
         }
     },
 
-    //DEPRECATED
-    //View all customers
-    //   indexCustomerView: (req, res) => {
-    //       res.render('customer/index');
-    //   },
-
-    indexCustomerAlerts: (req, res, next) => {
-        Customer.find()
-            .then(customers => {
-                res.locals.customers = customers;
-                next();
-            })
-            .catch(error => {
-                console.log(`Error fetching user customers: ${error.message}`);
-                next(error);
+    indexCustomerAlerts: async (req, res) => {
+        let currentUser = req.user;
+        try {
+            let customers = await User.findById(currentUser._id, "customers").populate("customers");
+            res.render('dashboard/pools-with-alerts', {
+                customers: customers.customers
             });
+        } catch (error) {
+            console.log(`There's been an error finding customers with indexCustomer: ${error.message}`);
+        }
     },
 
     indexCustomerAlertsView: (req, res) => {
         res.render('dashboard/pools-with-alerts');
     },
 
-    chemicalsToBring: (req, res) => {
-        res.render("dashboard/chemicals-to-bring");
-    },
+    //Part of Second Phase of Development
+    // chemicalsToBring: (req, res) => {
+    //     res.render("dashboard/chemicals-to-bring");
+    // },
 
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
