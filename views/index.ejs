@@ -6,6 +6,10 @@
         </div>
         <div class="container">
             <div class="about-me">
+                <% if (loggedIn) { %>
+                    <p>Welcome back, <%= currentUser.name.first %>!</p> 
+                    <a class="btn register-button-main" role="button" href="/account/logout">Log Out</a>
+                <% } else { %>
                 <p>
                     Welcome to the Amano Dashboard! Login or register below.
                 </p>
@@ -17,6 +21,7 @@
                 <a class="btn register-button-main" role="button" href="/account/register">
                     Register
                 </a>
+                <% } %>
             </div>
         </div>
     </section>
@@ -28,6 +33,16 @@
     <div class="container">
         <div class="row align-items-center manage">
             <div class="col-md-12 col-lg-5 offset-lg-1 text manage">
+                <% if (loggedIn) { %>
+                    <h3 class="manage-header">
+                        Thank You!
+                    </h3>
+                    <p class="manage-content">
+                        We're so grateful you decided
+                        to manage your pools with us. You won't regret it,
+                        we promise.
+                    </p>
+                <% } else { %>
                 <h3 class="manage-header">
                     Manage with Amano
                 </h3>
@@ -36,6 +51,7 @@
                     Register your account <a class="banner-link" href="/account/register">here</a>
                     to get access to a personalized pool dashboard!
                 </p>
+                <% } %>
             </div>
 
             <!-- Begin analytics laptop image -->
