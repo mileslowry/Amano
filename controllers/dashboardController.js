@@ -111,10 +111,49 @@ module.exports = {
 
     addPool: (req, res, next) => {
         let custId = req.params.custId;
+        let d = new Date();
         poolParams = {
             gallons: req.body.gallons,
             chemType: req.body.chemType,
-            customer: custId
+            customer: custId,
+            chemReading: [
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) - 5)
+                },
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) + 1)
+                }, 
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) + 1)
+                },
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) + 1)
+                },
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) + 1)
+                },
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
+                    cl: ((Math.random() * 4).toFixed(1)), 
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    readTime: d.setDate(d.getDate(d) + 1)
+                }
+            ]
         };
         Pool.create(poolParams)
             .then(pool => {

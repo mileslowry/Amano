@@ -16,23 +16,6 @@
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="/js/theme.js"></script>
-    <script>
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-        
-        for (i = 0; i < coll.length; i++) {
-          coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-              content.style.maxHeight = null;
-            } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-            }
-          });
-        }
-    </script>
-
     <!-- End Script References -->
 </head>
 
@@ -47,7 +30,7 @@
                 <ul class="nav navbar-nav ml-auto">
                     <% if (loggedIn) { %>
                     <% if (currentUser && currentUser.isAdmin) { %>
-                    <li class="nav-item"><a class="nav-link main-nav" href="<%= `/dashboard/${currentUser._id}` %>">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link main-nav" href="<%= `/dashboard` %>">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/admin/users">Amano Technicians</a></li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/customer">All Clients</a></li>
                     <li class="nav-item"><a class="nav-link main-nav" href="/admin/message">Tickets</a></li>

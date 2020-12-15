@@ -91,7 +91,7 @@ module.exports = {
         let custId = req.params.id;
         Customer.findByIdAndRemove(custId)
           .then(() => {
-            res.locals.redirect = "/customer";
+            res.locals.redirect = "/dashboard";
             next();
           })
           .catch(error => {
