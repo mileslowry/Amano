@@ -1,19 +1,29 @@
-var data = {
-    // Labels should be Date objects
-    labels: [new Date(2017, 08, 16), new Date(2017, 08, 17), new Date(2017, 08, 18)],
-    datasets: [{
-        fill: false,
-        label: 'pH',
-        data: [7.1, 7.4, 7.3],
-        borderColor: '#33A94B',
-        backgroundColor: '#33A94B',
-        lineTension: 0,
-    }]
-};
+// var data = {
+//     // Labels should be Date objects
+//     labels: [new Date(2017, 08, 16), new Date(2017, 08, 17), new Date(2017, 08, 18)],
+//     datasets: [{
+//         fill: false,
+//         label: 'pH',
+//         data: [7.1, 7.4, 7.3],
+//         borderColor: '#33A94B',
+//         backgroundColor: '#33A94B',
+//         lineTension: 0,
+//     }]
+// };
 var Trend = document.getElementById('ph-T').getContext('2d');
 var pHTrend = new Chart(Trend, {
     type: 'line',
-    data: data,
+    data: {
+        labels: [],
+        datasets: [{
+            fill: false,
+            label: 'pH',
+            data: [],
+            borderColor: '#33A94B',
+            backgroundColor: '#33A94B',
+            lineTension: 0,
+        }]
+    },
     options: {
         title: {
             display: true,

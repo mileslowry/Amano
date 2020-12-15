@@ -3,8 +3,9 @@ const router = require("express").Router(),
    
 
 router.get("/", dashboardController.indexCustomers);
-router.get("/alerts", dashboardController.indexCustomerAlerts, dashboardController.indexCustomerAlertsView);
-router.get("/chemicals-to-bring", dashboardController.chemicalsToBring);
+router.get("/alerts", dashboardController.indexPools, dashboardController.indexCustomerAlerts, dashboardController.indexCustomerAlertsView);
+// PART OF NEXT PHASE OF DEVELOPMENT:
+// router.get("/chemicals-to-bring", dashboardController.chemicalsToBring);
 router.get("/:id", dashboardController.indexCustomers);
 router.get("/:custId/add-pool", dashboardController.getCustomer, dashboardController.addPoolView);
 router.post("/:custId/add-pool", dashboardController.addPool, dashboardController.redirectView);
