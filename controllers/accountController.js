@@ -1,5 +1,7 @@
 const User = require("../models/Account"),
   passport = require("passport"),
+  axios = require("axios"),
+  Stats = require("../models/Stats"),
   getUserParams = body => {
     return {
       name: {
@@ -175,5 +177,30 @@ module.exports = {
         console.log(`Error deleting account: ${error.message}`);
         next();
       });
-  }
+  },
+
+  getIPLocation: async (req, res, next) => {
+    try {
+      const access_key = "bad73698b87df3a6a2333502cdd9ad2c";
+      const baseUrl = "http://api.ipstack.com/";
+      let resp = await axios.get(`${baseUrl}check?access_key=${access_key}`);
+      let location = resp.data;
+      currentUserIP = {
+        ip: {
+          address: location.ip,
+          ipType: location.type
+        },
+        location: {
+          continent: location.continent_name,
+          country: location.country_name,
+          city: location.city,
+          zipCode: location.zip
+        }
+      }
+      await Stats.create(currentUserIP)
+      .then(next());
+    } catch (error) {
+      console.log(`Error getting IP location: ${error.message}`)
+    }
+  },
 }
