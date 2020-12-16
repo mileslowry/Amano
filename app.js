@@ -30,6 +30,8 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+// For future update:
+app.set("token", process.env.TOKEN || "p00lDa$h");
 app.use(layouts);
 
 app.use(logger('dev'));
