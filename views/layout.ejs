@@ -49,7 +49,7 @@
                       </li>
                     <% } else { %>
                     <li class="nav-item"><a class="nav-link main-nav"
-                            href="<%= `/dashboard/${currentUser._id}` %>">Dashboard</a></li>
+                            href="<%= `/dashboard` %>">Dashboard</a></li>
                     <% } %>
                     <li class="nav-item"><a class="nav-link main-nav"
                             href="<%=`/account/${currentUser._id}`%>"><%=`${currentUser.name.first} ${currentUser.name.last}`%></a>
