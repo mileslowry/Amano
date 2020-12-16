@@ -14,7 +14,7 @@ const createError = require('http-errors'),
   Routes = require("./routes/index");
 
 mongoose.connect(
-  "mongodb+srv://mileslowry:testpassword@ml-cluster1.hks6n.mongodb.net/amano?retryWrites=true&w=majority",
+  process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }
 );
 
@@ -30,6 +30,8 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+// For future update:
+app.set("token", process.env.TOKEN || "p00lDa$h");
 app.use(layouts);
 
 app.use(logger('dev'));

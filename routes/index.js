@@ -7,12 +7,12 @@ const router = require("express").Router(),
   messageRoutes = require("./messageRoutes"),
   apiRoutes = require("./apiRoutes");
   
-router.use("/api", apiRoutes);
 router.use("/message", messageRoutes);
 router.use("/admin", adminRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/account", accountRoutes);
 router.use("/customer", customerRoutes);
+router.use("/api", apiRoutes);
 router.use("/", homeRoutes);
 
 module.exports = router;

@@ -2,6 +2,8 @@ const Help = require("../models/Help");
 const dateFormat = require("dateformat");
 
 module.exports = {
+
+    // Get verification that message was sent
     messageSentView: (req, res) => {
         res.render("message/message-sent");
     },
@@ -25,12 +27,14 @@ module.exports = {
             });
     },
     
+    // redirect locals
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath) res.redirect(redirectPath);
         else next();
     },
 
+    // get all tickets that are currently unresolved
     getUnresolvedTickets : (req, res, next) => {
         Help.find().where({dateResolved: null})
         .then((tickets) => {
@@ -40,6 +44,7 @@ module.exports = {
         });
     },
 
+    // get a ticket by id
     getTicketById : (req, res, next) => {
         let id = req.params.id;
         Help.findById(id)
@@ -51,6 +56,7 @@ module.exports = {
         });
     },
 
+    // update a single ticket
     updateTicketById: (req, res, next) => {
         let id = req.body.id;
         Help.findByIdAndUpdate(id, {$set: {dateResolved: new Date(), notes: req.body.notes}}, {new: true})

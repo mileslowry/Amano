@@ -1,24 +1,18 @@
 "use strict";
 
 const jwt = require('jsonwebtoken');
-const Style = require('../models/stache-style');
 
 module.exports = {
+
+    //Get a random API token, good for 24 hours
     getToken: (req, res) => {
         let signedToken = jwt.sign({
             expiresIn: '24h'
         },'secret');
-        res.json({API_Key: signedToken});
+        res.json({API_Key: signedToken, "for": "/users"});
     },
 
-    getStyles: (req, res) => {
-        Style.find({}).then((styles) => {
-            res.json({styles: styles});
-        }).catch((err) => {
-            next(err);
-        })
-    },
-
+    // Verify a token before allowing anything else to happen
     verifyToken: (req, res, next) => {
         let token = req.headers.token;
         if (token) {
