@@ -31,9 +31,20 @@
                     <% if (loggedIn) { %>
                     <% if (currentUser && currentUser.isAdmin) { %>
                     <li class="nav-item"><a class="nav-link main-nav" href="<%= `/dashboard` %>">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/admin/users">Amano Technicians</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/customer">All Clients</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/admin/message">Tickets</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle main-nav" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link main-nav" href="/admin/users">Amano Technicians</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link main-nav" href="/customer">All Clients</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link main-nav" href="/admin/message">Manage Tickets</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link main-nav" href="/admin/stats">Track App Use</a>
+                        </div>
+                      </li>
                     <% } else { %>
                     <li class="nav-item"><a class="nav-link main-nav"
                             href="<%= `/dashboard/${currentUser._id}` %>">Dashboard</a></li>
@@ -41,12 +52,12 @@
                     <li class="nav-item"><a class="nav-link main-nav"
                             href="<%=`/account/${currentUser._id}`%>"><%=`${currentUser.name.first} ${currentUser.name.last}`%></a>
                     </li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/account/logout">Log Out</a></li>
+                    <li class="nav-item"><a class="btn btn-amano" href="/account/logout">Log Out</a></li>
                     <%} else {%>
                     <!-- If user is not logged in, show these nav items -->
                     <li class="nav-item"><a class="nav-link main-nav" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/account/login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link main-nav" href="/account/register">Register</a></li>
+                    <li class="nav-item"><a class="btn btn-amano" href="/account/login">Login</a></li>
+                    <li class="nav-item"><a class="btn btn-amano" href="/account/register">Register</a></li>
                     <% } %>
                     
             </div>

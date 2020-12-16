@@ -1,0 +1,51 @@
+<main class="page lanidng-page">  
+    <section class="portfolio-block block-intro">
+        <div class="container">
+            <br>
+            <br>
+            <h1>Track App Use</h1>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Login Time</th>
+                        <th>IP Address</th>
+                        <th>IP Type</th>
+                        <th>Continent</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Zip Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% stats.forEach(stat => { %>
+                    <tr>
+                        <td>
+                            <%= dateFormat(stat.createdAt, "mmmm dS, yyyy, h:MM:ss TT") %>
+                        </td>
+                        <td>
+                            <%= stat.ip.address %>
+                        </td>
+                        <td>
+                            <%= stat.ip.ipType %>
+                        </td>
+                        <td>
+                            <%= stat.location.continent %>
+                        </td>
+                        <td>
+                            <%= stat.location.country %>
+                        </td>
+                        <td>
+                            <%= stat.location.city %>
+                        </td>
+                        <td>
+                            <%= stat.location.zipCode %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </section>
+</main>

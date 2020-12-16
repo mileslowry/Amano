@@ -8,6 +8,7 @@ router.use(adminController.verifyAdmin);
 
 router.get("/users", accountController.index, accountController.indexView);
 router.post("/users/update-all", accountController.updateUsers);
+router.get("/stats", accountController.trackAppUse);
 router.get("/message", messageController.getUnresolvedTickets);
 router.get("/message/:id/edit", messageController.getTicketById);
 router.post("/message/:id/update", messageController.updateTicketById);
