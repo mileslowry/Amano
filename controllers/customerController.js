@@ -4,6 +4,7 @@ const Customer = require("../models/Customer");
 
 module.exports = {
 
+    // Get all customers from database
     index: (req, res, next) => {
         Customer.find()
           .then(customers => {
@@ -16,10 +17,12 @@ module.exports = {
           });
       },
     
+      // Render view of all customers
       indexView: (req, res) => {
           res.render('customer/index');
       },
-    
+      
+      //Redirect res.locals
       redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath) res.redirect(redirectPath);
@@ -39,7 +42,8 @@ module.exports = {
                 next(error);
             });
       },
-    
+      
+      // View a single customer
       customerView: (req, res) => {
         res.render('customer/show');
       },
@@ -59,7 +63,7 @@ module.exports = {
           });
       },
     
-      //Apply edits to customer record in databse
+      //Apply edits to customer record in database
       update: (req, res, next) => {
         let custId = req.params.id,
           customerParams = {
@@ -99,6 +103,20 @@ module.exports = {
             next();
           });
       },
+
+      // Delete customer in admin view
+      deleteAdmin: (req, res, next) => {
+        let custId = req.params.id;
+        Customer.findByIdAndRemove(custId)
+          .then(() => {
+            res.locals.redirect = "/admin/customer";
+            next();
+          })
+          .catch(error => {
+            console.log(`Error deleting customer by ID: ${error.message}`);
+            next();
+          });
+      },
     
       //Add a new customer
       addCustomer: (req, res, next) => {
@@ -124,25 +142,7 @@ module.exports = {
           next(error);
         });
       },
-
-      // clientCustomerRelationship: (req, res, next) => {
-      //   let user = req.user;
-      //   let newCustomer = {
-      //     customers: customer._id
-      //   }
-      //   console.log(user);
-      //   User.findByIdAndUpdate(user._id, {$addToSet: newCustomer})
-      //   .then(customer => {
-      //     res.locals.redirect = "/dashboard";
-      //     res.locals.customer = customer;
-      //     next();
-      //   })
-      //   .catch(error => {
-      //     console.log(`Error adding client to user account: ${error.message}`);
-      //     next(error);
-      //   });
-      // },
-    
+      
       //View the page for creating a new customer
       addCustomerView: (req, res) => {
         res.render('customer/new');

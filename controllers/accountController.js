@@ -25,6 +25,7 @@ const checkBool = (value) => {
 
 module.exports = {
 
+  // Get all users from database
   index: (req, res, next) => {
     User.find()
       .then(users => {
@@ -37,10 +38,12 @@ module.exports = {
       });
   },
 
+  // Render all users
   indexView: (req, res) => {
     res.render('admin/users');
   },
 
+  // Loop through forms and update each user
   updateUsers: async (req, res) => {
     console.log(req.body);
     try {
@@ -66,6 +69,7 @@ module.exports = {
     }
   },
 
+  // Update a single user
   update: async (req, res) => {
     try {
       let id = await req.params.id;
@@ -86,18 +90,12 @@ module.exports = {
     };
   },
 
-  login: (req, res) => {
-    res.render("users/login");
-  },
-
-  loginOrRegister: (req, res) => {
-    res.render('account/login');
-  },
-
+  // Render login view
   loginView: (req, res) => {
     res.render('account/login');
   },
 
+  // Render register view
   registerView: (req, res) => {
     res.render('account/register');
   },
@@ -119,56 +117,37 @@ module.exports = {
     });
   },
 
-  validate: async (req, res, next) => {
-    await check("email").normalizeEmail({
-      all_lowercase: true
-    }).trim().run(req);
-    await check("email", "Email is invalid").isEmail().run(req);
-    await check("zipCode", "Zip code is invalid")
-      .notEmpty().isInt().isLength({
-        min: 5,
-        max: 5
-      }).equals(req.body.zipCode).run(req);
-    await check("password", "Password cannot be empty").notEmpty().run(req);
-
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-      let messages = error.array().map(e => e.msg);
-      req.skip = true;
-      req.flash("error", messages.join(" and "));
-      res.locals.redirect = "/account/register";
-      next();
-    } else {
-      next();
-    }
-
-  },
-
+  // redirect res.locals
   redirectView: (req, res, next) => {
     let redirectPath = res.locals.redirect;
     if (redirectPath) res.redirect(redirectPath);
     else next();
   },
 
+  // authenticate user to login
   authenticate: passport.authenticate("local", {
     failureRedirect: "/account/register",
     successRedirect: "/dashboard",
   }),
 
+  // log user out
   logout: (req, res, next) => {
     req.logout();
     res.locals.redirect = "/";
     next();
   },
 
+  // Render account
   viewAccount: (req, res) => {
     res.render("account/index");
   },
 
+  // Render view to edit account
   editAccountView: (req, res) => {
     res.render("account/edit");
   },
 
+  // delete a user
   delete: (req, res, next) => {
     let userId = req.params.id;
     User.findByIdAndRemove(userId)
@@ -182,6 +161,7 @@ module.exports = {
       });
   },
 
+  // Get the IP information of the current user and store in Stats
   getIPLocation: async (req, res, next) => {
     try {
       const access_key = "bad73698b87df3a6a2333502cdd9ad2c";
@@ -207,6 +187,7 @@ module.exports = {
     }
   },
 
+  // Get all data from Stats and view it
   trackAppUse: async (req, res) => {
     try {
       let stats = await Stats.find();
@@ -219,65 +200,67 @@ module.exports = {
     }
   },
 
-  apiAuthenticate: (req, res, next) => {
-    passport.authenticate("local", (errors, user) => {
-      if (user) {
-        let signedToken = jsonWebToken.sign({
-            data: user._id,
-            exp: new Date().setDate(new Date().getDate() + 1)
-          },
-          "secret_encoding_passphrase"
-        );
+  // CURRENTLY UNUSED -- FOR LATER VERSION
+  // apiAuthenticate: (req, res, next) => {
+  //   passport.authenticate("local", (errors, user) => {
+  //     if (user) {
+  //       let signedToken = jsonWebToken.sign({
+  //           data: user._id,
+  //           exp: new Date().setDate(new Date().getDate() + 1)
+  //         },
+  //         "secret_encoding_passphrase"
+  //       );
 
-        //Check to see if req came from web app or external api call
-        if (req.originalUrl === "/account/login") {
-          req.session.token = signedToken;
-          next();
-        } else {
-          res.json({
-            success: true,
-            token: signedToken
-          });
-        }
-      } else
-        res.json({
-          success: false,
-          message: "Could not authenticate user."
-        });
-    })(req, res, next);
-  },
+  //       //Check to see if req came from web app or external api call
+  //       if (req.originalUrl === "/account/login") {
+  //         req.session.token = signedToken;
+  //         next();
+  //       } else {
+  //         res.json({
+  //           success: true,
+  //           token: signedToken
+  //         });
+  //       }
+  //     } else
+  //       res.json({
+  //         success: false,
+  //         message: "Could not authenticate user."
+  //       });
+  //   })(req, res, next);
+  // },
 
-  verifyJWT: (req, res, next) => {
-    let token = req.header("Authorization") ? req.header("Authorization").replace("Bearer ", "") : req.session.token;
-    if (token) {
-      jsonWebToken.verify(token, "secret_encoding_passphrase", (errors, payload) => {
-        if (payload) {
-          User.findById(payload.data).then(user => {
-            if (user) {
-              next();
-            } else {
-              res.status(httpStatus.FORBIDDEN).json({
-                error: true,
-                message: "No User account found."
-              });
-            }
-          });
-        } else {
-          res.status(httpStatus.UNAUTHORIZED).json({
-            error: true,
-            message: "Cannot verify API token."
-          });
-          next();
-        }
-      });
-    } else {
-      res.status(httpStatus.UNAUTHORIZED).json({
-        error: true,
-        message: "Provide Token"
-      });
-    }
-  },
+  // verifyJWT: (req, res, next) => {
+  //   let token = req.header("Authorization") ? req.header("Authorization").replace("Bearer ", "") : req.session.token;
+  //   if (token) {
+  //     jsonWebToken.verify(token, "secret_encoding_passphrase", (errors, payload) => {
+  //       if (payload) {
+  //         User.findById(payload.data).then(user => {
+  //           if (user) {
+  //             next();
+  //           } else {
+  //             res.status(httpStatus.FORBIDDEN).json({
+  //               error: true,
+  //               message: "No User account found."
+  //             });
+  //           }
+  //         });
+  //       } else {
+  //         res.status(httpStatus.UNAUTHORIZED).json({
+  //           error: true,
+  //           message: "Cannot verify API token."
+  //         });
+  //         next();
+  //       }
+  //     });
+  //   } else {
+  //     res.status(httpStatus.UNAUTHORIZED).json({
+  //       error: true,
+  //       message: "Provide Token"
+  //     });
+  //   }
+  // },
 
+  // Render errors as JSON
   errorJSON: (error, req, res, next) => {
     let errorObject;
     if (error) {

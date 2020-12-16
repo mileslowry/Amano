@@ -3,13 +3,16 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = {
+
+    //Get a random API token, good for 24 hours
     getToken: (req, res) => {
         let signedToken = jwt.sign({
             expiresIn: '24h'
         },'secret');
-        res.json({API_Key: signedToken});
+        res.json({API_Key: signedToken, "for": "/users"});
     },
 
+    // Verify a token before allowing anything else to happen
     verifyToken: (req, res, next) => {
         let token = req.headers.token;
         if (token) {

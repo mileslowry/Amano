@@ -3,6 +3,8 @@ const Customer = require("../models/Customer");
 const httpStatus = require("http-status-codes");
 
 module.exports = {
+
+    // render dashboard view
     dashView: (req, res) => {
         res.render("dashboard/index");
     },
@@ -26,6 +28,7 @@ module.exports = {
             });
     },
 
+    //Get the data for all pools and return object with alerts
     indexPools: (req, res, next) => {
         let alerts = [];
         let pHAlert;
@@ -82,10 +85,7 @@ module.exports = {
         })
     },
 
-    filterForAlerts: (req, res, next) => {
-        
-    },
-
+    // Get returned data in JSON format
     respondJSON: (req, res) => {
         res.json({
             status: httpStatus.OK,
@@ -93,6 +93,7 @@ module.exports = {
         });
     },
 
+    // View error in JSON format
     errorJSON: (error, req, res, next) => {
         let errorObject;
         if (error) {
@@ -109,6 +110,7 @@ module.exports = {
         res.json(errorObject);
     },
 
+    // Add a pool -- generate random data for chemReadings
     addPool: (req, res, next) => {
         let custId = req.params.custId;
         let d = new Date();
@@ -167,6 +169,7 @@ module.exports = {
             })
     },
 
+    // Render view to add pool
     addPoolView: (req, res) => {
         res.render("dashboard/new");
     },
@@ -198,6 +201,7 @@ module.exports = {
         }
     },
 
+    // Index customers and render in pools-with-alerts view
     indexCustomerAlerts: async (req, res) => {
         let currentUser = req.user;
         try {
