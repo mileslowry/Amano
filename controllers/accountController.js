@@ -1,6 +1,7 @@
 const User = require("../models/Account"),
   passport = require("passport"),
   axios = require("axios"),
+  dateFormat = require("dateformat"),
   Stats = require("../models/Stats"),
   getUserParams = body => {
     return {
@@ -203,4 +204,13 @@ module.exports = {
       console.log(`Error getting IP location: ${error.message}`)
     }
   },
+
+  trackAppUse: async (req, res) => {
+    try {
+      let stats = await Stats.find();
+      res.render("admin/app-use", {stats: stats, dateFormat: dateFormat});
+    } catch (error) {
+      console.log(`Error getting app use stats: ${error.message}`)
+    }
+  }
 }
