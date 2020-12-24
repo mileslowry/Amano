@@ -2,22 +2,65 @@ const Pool = require("../models/Pool");
 const Customer = require("../models/Customer");
 const httpStatus = require("http-status-codes");
 
-const Alkalinity = (reading) => {
-    this.reading = reading,
-    this.checkLevel = () => {
-        let alertVal;
-        if (reading < 90) {
-            alertVal = "Low";
-        } else if (reading > 110) {
-            alertVal = "High";
-        } else {
-            alertVal = "Green";
-        }
-    },
-    this.generateReading = () => {
 
+class Alkalinity {
+    constructor(reading) {
+        this.reading = reading,
+            this.checkLevel = () => {
+                let alertVal;
+                if (this.reading < 90) {
+                    return alertVal = "Low";
+                } else if (this.reading > 110) {
+                    return alertVal = "High";
+                } else {
+                    return alertVal = "Green";
+                }
+            },
+            this.generateReading = () => {
+                return (Math.random() * (125 - 75) + 75).toFixed(1);
+            };
     }
-}
+};
+
+
+class PH {
+    constructor(reading) {
+        this.reading = reading,
+            this.checkLevel = () => {
+                let alertVal;
+                if (this.reading < 7.4) {
+                    return alertVal = "Low";
+                } else if (this.reading > 7.6) {
+                    return alertVal = "High";
+                } else {
+                    return alertVal = "Green";
+                }
+            },
+            this.generateReading = () => {
+                return (Math.random() * (8 - 7) + 7).toFixed(1);
+            };
+    }
+};
+
+
+class Chlorine {
+    constructor(reading) {
+        this.reading = reading,
+            this.checkLevel = () => {
+                let alertVal;
+                if (this.reading <= 1) {
+                    return alertVal = "Low";
+                } else if (this.reading > 3) {
+                    return alertVal = "High";
+                } else {
+                    return alertVal = "Green";
+                }
+            },
+            this.generateReading = () => {
+                return (Math.random() * 4).toFixed(1);
+            };
+    }
+};
 
 module.exports = {
 
@@ -48,58 +91,47 @@ module.exports = {
     //Get the data for all pools and return object with alerts
     indexPools: (req, res, next) => {
         let alerts = [];
+        let newPH;
+        let newCl;
+        let newAlk;
         let pHAlert;
         let clAlert;
         let alkAlert;
+        let test;
         Pool.find()
-        .then(pools => {
-            pools.forEach(pool => {
-                let numReadings = Object.keys(pool.chemReading).length;
+            .then(pools => {
+                pools.forEach(pool => {
+                    let numReadings = Object.keys(pool.chemReading).length;
 
-                if (pool.chemReading.length != 0) {
-                    let pHRead = pool.chemReading[numReadings - 1].pH;
-                    let clRead = pool.chemReading[numReadings - 1].cl;
-                    let alkRead = pool.chemReading[numReadings - 1].alk;
-    
-                    if (pHRead < 7.4) {
-                        pHAlert = "Low";
-                    } else if (pHRead > 7.6) {
-                        pHAlert = "High";
-                    } else {
-                        pHAlert = "Green";
+                    if (pool.chemReading.length != 0) {
+                        let pHRead = pool.chemReading[numReadings - 1].pH;
+                        let clRead = pool.chemReading[numReadings - 1].cl;
+                        let alkRead = pool.chemReading[numReadings - 1].alk;
+
+                        newPH = new PH(pHRead);
+                        pHAlert = newPH.checkLevel();
+
+                        newCl = new Chlorine(clRead);
+                        clAlert = newCl.checkLevel();
+
+                        newAlk = new Alkalinity(alkRead);
+                        alkAlert = newAlk.checkLevel();
+
+                        alerts.push({
+                            pHAlert: pHAlert,
+                            clAlert: clAlert,
+                            alkAlert: alkAlert,
+                            poolId: pool._id
+                        })
                     };
-    
-                    if (clRead <= 1) {
-                        clAlert = "Low";
-                    } else if (clRead >= 3) {
-                        clAlert = "High";
-                    } else {
-                        clAlert = "Green";
-                    };
-    
-                    if (alkRead < 90) {
-                        alkAlert = "Low";
-                    } else if (alkRead > 110) {
-                        alkAlert = "High";
-                    } else {
-                        alkAlert = "Green";
-                    };
-    
-                    alerts.push({
-                        pHAlert: pHAlert,
-                        clAlert: clAlert,
-                        alkAlert: alkAlert,
-                        poolId: pool._id
-                    })
-                };          
-            });
-            res.locals.alerts = alerts;
-            next();
-        })
-        .catch(error => {
-            console.log(error);
-            next(error);
-        })
+                });
+                res.locals.alerts = alerts;
+                next();
+            })
+            .catch(error => {
+                console.log(error);
+                next(error);
+            })
     },
 
     // Get returned data in JSON format
@@ -137,39 +169,39 @@ module.exports = {
             customer: custId,
             chemReading: [
                 {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
                     readTime: d.setDate(d.getDate(d) - 5)
                 },
                 {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
-                    readTime: d.setDate(d.getDate(d) + 1)
-                }, 
-                {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
                     readTime: d.setDate(d.getDate(d) + 1)
                 },
                 {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
                     readTime: d.setDate(d.getDate(d) + 1)
                 },
                 {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
                     readTime: d.setDate(d.getDate(d) + 1)
                 },
                 {
-                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)), 
-                    cl: ((Math.random() * 4).toFixed(1)), 
-                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)), 
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
+                    readTime: d.setDate(d.getDate(d) + 1)
+                },
+                {
+                    pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
+                    cl: ((Math.random() * 4).toFixed(1)),
+                    alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),
                     readTime: d.setDate(d.getDate(d) + 1)
                 }
             ]
