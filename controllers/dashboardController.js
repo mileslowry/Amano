@@ -1,66 +1,7 @@
 const Pool = require("../models/Pool");
 const Customer = require("../models/Customer");
 const httpStatus = require("http-status-codes");
-
-
-class Alkalinity {
-    constructor(reading) {
-        this.reading = reading,
-            this.checkLevel = () => {
-                let alertVal;
-                if (this.reading < 90) {
-                    return alertVal = "Low";
-                } else if (this.reading > 110) {
-                    return alertVal = "High";
-                } else {
-                    return alertVal = "Green";
-                }
-            },
-            this.generateReading = () => {
-                return (Math.random() * (125 - 75) + 75).toFixed(1);
-            };
-    }
-};
-
-
-class PH {
-    constructor(reading) {
-        this.reading = reading,
-            this.checkLevel = () => {
-                let alertVal;
-                if (this.reading < 7.4) {
-                    return alertVal = "Low";
-                } else if (this.reading > 7.6) {
-                    return alertVal = "High";
-                } else {
-                    return alertVal = "Green";
-                }
-            },
-            this.generateReading = () => {
-                return (Math.random() * (8 - 7) + 7).toFixed(1);
-            };
-    }
-};
-
-
-class Chlorine {
-    constructor(reading) {
-        this.reading = reading,
-            this.checkLevel = () => {
-                let alertVal;
-                if (this.reading <= 1) {
-                    return alertVal = "Low";
-                } else if (this.reading > 3) {
-                    return alertVal = "High";
-                } else {
-                    return alertVal = "Green";
-                }
-            },
-            this.generateReading = () => {
-                return (Math.random() * 4).toFixed(1);
-            };
-    }
-};
+const Dashboard = require("../classes/dashboardClasses");
 
 module.exports = {
 
@@ -90,14 +31,9 @@ module.exports = {
 
     //Get the data for all pools and return object with alerts
     indexPools: (req, res, next) => {
-        let alerts = [];
-        let newPH;
-        let newCl;
-        let newAlk;
-        let pHAlert;
-        let clAlert;
-        let alkAlert;
-        let test;
+        let alerts = []; 
+        let newPH; let newCl; let newAlk;
+        let pHAlert; let clAlert; let alkAlert;
         Pool.find()
             .then(pools => {
                 pools.forEach(pool => {
@@ -108,13 +44,13 @@ module.exports = {
                         let clRead = pool.chemReading[numReadings - 1].cl;
                         let alkRead = pool.chemReading[numReadings - 1].alk;
 
-                        newPH = new PH(pHRead);
+                        newPH = new Dashboard.PH(pHRead);
                         pHAlert = newPH.checkLevel();
 
-                        newCl = new Chlorine(clRead);
+                        newCl = new Dashboard.Chlorine(clRead);
                         clAlert = newCl.checkLevel();
 
-                        newAlk = new Alkalinity(alkRead);
+                        newAlk = new Dashboard.Alkalinity(alkRead);
                         alkAlert = newAlk.checkLevel();
 
                         alerts.push({
