@@ -14,7 +14,8 @@ const createError = require('http-errors'),
   Routes = require("./routes/index");
 
 mongoose.connect(
-  process.env.MONGODB_URI,
+  'mongodb+srv://mileslowry:testpassword@ml-cluster1.hks6n.mongodb.net/amano_db?retryWrites=true&w=majority',
+  // process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }
 );
 

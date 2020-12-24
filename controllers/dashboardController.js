@@ -2,6 +2,23 @@ const Pool = require("../models/Pool");
 const Customer = require("../models/Customer");
 const httpStatus = require("http-status-codes");
 
+const Alkalinity = (reading) => {
+    this.reading = reading,
+    this.checkLevel = () => {
+        let alertVal;
+        if (reading < 90) {
+            alertVal = "Low";
+        } else if (reading > 110) {
+            alertVal = "High";
+        } else {
+            alertVal = "Green";
+        }
+    },
+    this.generateReading = () => {
+
+    }
+}
+
 module.exports = {
 
     // render dashboard view

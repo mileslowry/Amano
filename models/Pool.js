@@ -7,6 +7,8 @@ const mongoose = require("mongoose"),
 const chemReadingSchema = new mongoose.Schema({
   pH: {
     type: Number,
+    min: 0,
+    max: 14,
     required: true,
   },
   cl: {

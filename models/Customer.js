@@ -14,6 +14,8 @@ const customerSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    lowercase: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
     required: true
   },
   phone: {
