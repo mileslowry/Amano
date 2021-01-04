@@ -13,6 +13,16 @@
     font-size: 40px;
 }
 
+.nav-item {
+    font-size: large;
+    color:#23233d;
+}
+
+.nav-item:hover {
+    color:#28a9d1;
+    font-weight: bold;
+}
+
 .block-intro {
     background: #ffffff;
 }
@@ -123,10 +133,6 @@
     border-color: rgba(33, 37, 41, 0);
 }
 
-.main-nav {
-    color: rgb(35, 35, 61);
-}
-
 .active,
 .collapsible:hover {
     background-color: #23233d;
@@ -188,3 +194,46 @@ tr:nth-child(even) {
     justify-content: center;
 }
 
+.bg-blue {
+  background: #23233d;
+  width: 25%
+}
+
+
+.container-fluid-max {
+  max-width: 1440px;
+}
+
+.cover {
+  background: no-repeat center/cover;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+
+.hero {
+    background-attachment: fixed;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.5) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+  
+  .hero .container-fluid {
+    z-index: 10;
+  }
+
+  
