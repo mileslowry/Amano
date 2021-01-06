@@ -156,7 +156,7 @@
     place-content: left;
 }
 
-table {
+table { 
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -235,5 +235,3 @@ tr:nth-child(even) {
   .hero .container-fluid {
     z-index: 10;
   }
-
-  
