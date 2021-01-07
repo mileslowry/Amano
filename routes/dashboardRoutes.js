@@ -2,7 +2,7 @@ const router = require("express").Router(),
     dashboardController= require("../controllers/dashboardController");
    
 
-router.get("/", dashboardController.indexCustomers);
+router.get("/", dashboardController.indexPools, dashboardController.indexCustomers);
 router.get("/alerts", dashboardController.indexPools, dashboardController.indexCustomerAlerts, dashboardController.indexCustomerAlertsView);
 // PART OF NEXT PHASE OF DEVELOPMENT:
 // router.get("/chemicals-to-bring", dashboardController.chemicalsToBring);
