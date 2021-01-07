@@ -7,6 +7,7 @@ const router = require("express").Router(),
 
 //router.post("/login", accountController.apiAuthenticate); --FUTURE UPDATE
 router.get("/dashboard/:custId/:poolId", dashboardController.getPool, dashboardController.respondJSON);
+router.get("/dashboard/alerts", dashboardController.indexPools, dashboardController.respondJSON);
 
 // router.use(accountController.verifyJWT); --FUTURE UPDATE
 router.use(apiController.verifyToken);

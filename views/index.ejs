@@ -8,8 +8,9 @@
                     <% if (currentUser) { %>
                         <h1 class="text-white">Welcome back, <%= currentUser.name.first %>!</h1>
                         <a class="btn bg-blue text-white mr-2" href="/account/logout" style="font-size: large;" role="button">Log Out</a>
+                        <a class="btn bg-blue text-white mr-2" href="/dashboard" style="font-size: large;" role="button">Dashboard</a>
                     <% } else { %>
-                        <h1 class="text-white">Track pool levels with Amano</h1>
+                        <h1 class="text-white">Track levels with PoolPro</h1>
                         <div class="mt-3">
                           <a class="btn bg-blue text-white mr-2" href="/account/login" style="font-size: x-large;" role="button">Login</a>
                           <a class="btn bg-blue text-white" href="/account/register" style="font-size: x-large;" role="button">Register</a>

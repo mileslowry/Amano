@@ -29,39 +29,44 @@ module.exports = {
             });
     },
 
-    //Get the data for all pools and return object with alerts
     indexPools: (req, res, next) => {
-        let alerts = []; 
-        let newPH; let newCl; let newAlk;
-        let pHAlert; let clAlert; let alkAlert;
-        Pool.find()
-            .then(pools => {
-                pools.forEach(pool => {
-                    let numReadings = Object.keys(pool.chemReading).length;
+        let alerts = [];
+        let newPH;
+        let newCl;
+        let newAlk;
+        let pHAlert;
+        let clAlert;
+        let alkAlert;
 
-                    if (pool.chemReading.length != 0) {
-                        let pHRead = pool.chemReading[numReadings - 1].pH;
-                        let clRead = pool.chemReading[numReadings - 1].cl;
-                        let alkRead = pool.chemReading[numReadings - 1].alk;
+        let currentUser = req.user;
+        let userId = currentUser._id;
 
-                        newPH = new Dashboard.PH(pHRead);
-                        pHAlert = newPH.checkLevel();
+        User.findById(userId, "customers").populate("customers")
+            .then(customers => {
+                customers.customers.forEach(
+                    customer => {
+                        let pool = customer.pools[0];
+                        let numReadings = Object.keys(pool.chemReading).length;
+                        if (numReadings != 0) {
+                            newPH = new Dashboard.PH(pool.chemReading[numReadings - 1].pH);
+                            pHAlert = newPH.checkLevel();
 
-                        newCl = new Dashboard.Chlorine(clRead);
-                        clAlert = newCl.checkLevel();
+                            newCl = new Dashboard.Chlorine(pool.chemReading[numReadings - 1].cl);
+                            clAlert = newCl.checkLevel();
 
-                        newAlk = new Dashboard.Alkalinity(alkRead);
-                        alkAlert = newAlk.checkLevel();
-
-                        alerts.push({
-                            pHAlert: pHAlert,
-                            clAlert: clAlert,
-                            alkAlert: alkAlert,
-                            poolId: pool._id
-                        })
-                    };
-                });
+                            newAlk = new Dashboard.Alkalinity(pool.chemReading[numReadings - 1].alk);
+                            alkAlert = newAlk.checkLevel();
+                            alerts.push({
+                                pHAlert: pHAlert,
+                                clAlert: clAlert,
+                                alkAlert: alkAlert,
+                                poolId: pool._id
+                            })
+                        };
+                    });
+                console.log(alerts);
                 res.locals.alerts = alerts;
+                res.locals.customers = customers.customers;
                 next();
             })
             .catch(error => {
@@ -69,6 +74,47 @@ module.exports = {
                 next(error);
             })
     },
+
+    //Get the data for all pools and return object with alerts
+    // indexPools: (req, res, next) => {
+    //     let alerts = []; 
+    //     let newPH; let newCl; let newAlk;
+    //     let pHAlert; let clAlert; let alkAlert;
+    //     Pool.find()
+    //         .then(pools => {
+    //             pools.forEach(pool => {
+    //                 let numReadings = Object.keys(pool.chemReading).length;
+    //                 console.log(pool);
+    //                 if (pool.chemReading.length != 0) {
+    //                     let pHRead = pool.chemReading[numReadings - 1].pH;
+    //                     let clRead = pool.chemReading[numReadings - 1].cl;
+    //                     let alkRead = pool.chemReading[numReadings - 1].alk;
+
+    //                     newPH = new Dashboard.PH(pHRead);
+    //                     pHAlert = newPH.checkLevel();
+
+    //                     newCl = new Dashboard.Chlorine(clRead);
+    //                     clAlert = newCl.checkLevel();
+
+    //                     newAlk = new Dashboard.Alkalinity(alkRead);
+    //                     alkAlert = newAlk.checkLevel();
+
+    //                     alerts.push({
+    //                         pHAlert: pHAlert,
+    //                         clAlert: clAlert,
+    //                         alkAlert: alkAlert,
+    //                         poolId: pool._id
+    //                     })
+    //                 };
+    //             });
+    //             res.locals.alerts = alerts;
+    //             next();
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //             next(error);
+    //         })
+    // },
 
     // Get returned data in JSON format
     respondJSON: (req, res) => {
@@ -103,8 +149,7 @@ module.exports = {
             gallons: req.body.gallons,
             chemType: req.body.chemType,
             customer: custId,
-            chemReading: [
-                {
+            chemReading: [{
                     pH: ((Math.random() * (8 - 7) + 7).toFixed(1)),
                     cl: ((Math.random() * 4).toFixed(1)),
                     alk: ((Math.random() * (125 - 75) + 75).toFixed(1)),

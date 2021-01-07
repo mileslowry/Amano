@@ -50,9 +50,10 @@ const customerSchema = new mongoose.Schema({
   technician: {
     type: Schema.Types.ObjectId
   },
-  pools: [{ type: Schema.Types.ObjectId, ref: "Pool" }]
+  pools: [{ type: Schema.Types.ObjectId, ref: "Pool", autopopulate: true }]
 });
 
+customerSchema.plugin(require('mongoose-autopopulate'));
 customerSchema.plugin(passportLocalMongoose);
  
 customerSchema.pre("save", function(next) {

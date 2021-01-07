@@ -1,16 +1,18 @@
 <main class="page lanidng-page">
     <section class="portfolio-block block-intro" style="background: white;">
-        <div class=container>
+        <div class="container amano-form-container">
             <div class="data-form">
                 <form action="/account/login" method="POST">
                     <h2 class="form-signin-heading">Access Account</h2>
                     <br />
                     <input class="form-control" type="email" name="email" id="inputEmail" placeholder="Email address"
-                        required>
+                        required><br />
                     <input class="form-control" type="password" name="password" id="inputPassword"
                         placeholder="Password" required>
                     <br />
-                    <button class="btn btn-lg btn-primary btn-block btn-amano" type="submit">Login</button>
+                    <div class="text-right">
+                        <button class="btn btn-amano" type="submit">Login</button>
+                    </div>
                     <br />
                     <br />
                     <h6>Not a member yet? <a href="/account/register">Register</a></h6>
