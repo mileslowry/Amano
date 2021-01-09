@@ -24,10 +24,10 @@ var clOption = {
             axisTick: { show: true },
             axisLabel: {
                 show: true,
-                splitNumber: 5
+                splitNumber: 2
             },
             splitLine: { show: false },
-            splitNumber: 5,
+            splitNumber: 2,
             name: "Cl Levels",
             type: 'gauge',
             min: 0,
