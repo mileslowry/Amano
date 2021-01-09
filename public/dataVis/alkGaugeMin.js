@@ -25,7 +25,7 @@ var alkOption = {
                 show: true,
             },
             splitLine: { show: false },
-            splitNumber: 5,
+            splitNumber: 2,
             axisLabel: {
                 show: true,
                 distance: 5

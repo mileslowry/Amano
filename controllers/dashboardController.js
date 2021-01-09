@@ -46,25 +46,42 @@ module.exports = {
                 customers.customers.forEach(
                     customer => {
                         let pool = customer.pools[0];
-                        let numReadings = Object.keys(pool.chemReading).length;
-                        if (numReadings != 0) {
-                            newPH = new Dashboard.PH(pool.chemReading[numReadings - 1].pH);
-                            pHAlert = newPH.checkLevel();
+                        if (pool != undefined) {
+                            let numReadings = Object.keys(pool.chemReading).length;
+                            if (numReadings != 0) {
+                                newPH = new Dashboard.PH(pool.chemReading[numReadings - 1].pH);
+                                pHAlert = newPH.checkLevel();
+    
+                                newCl = new Dashboard.Chlorine(pool.chemReading[numReadings - 1].cl);
+                                clAlert = newCl.checkLevel();
+    
+                                newAlk = new Dashboard.Alkalinity(pool.chemReading[numReadings - 1].alk);
+                                alkAlert = newAlk.checkLevel();
+                                alerts.push({
+                                    pHAlert: pHAlert,
+                                    clAlert: clAlert,
+                                    alkAlert: alkAlert,
+                                    pHRead: newPH.reading,
+                                    clRead: newCl.reading,
+                                    alkRead: newAlk.reading,
+                                    poolId: pool._id
+                                })
 
-                            newCl = new Dashboard.Chlorine(pool.chemReading[numReadings - 1].cl);
-                            clAlert = newCl.checkLevel();
-
-                            newAlk = new Dashboard.Alkalinity(pool.chemReading[numReadings - 1].alk);
-                            alkAlert = newAlk.checkLevel();
+                                console.log(pool);
+                        } else {
                             alerts.push({
-                                pHAlert: pHAlert,
-                                clAlert: clAlert,
-                                alkAlert: alkAlert,
-                                poolId: pool._id
+                                pHAlert: null,
+                                clAlert: null,
+                                alkAlert: null,
+                                pHRead: null,
+                                clRead: null,
+                                alkRead: null,
+                                poolId: null
                             })
+                        }
+                        console.log(alerts);
                         };
                     });
-                console.log(alerts);
                 res.locals.alerts = alerts;
                 res.locals.customers = customers.customers;
                 next();

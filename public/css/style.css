@@ -245,3 +245,14 @@ tr:nth-child(even) {
     border-color: #e4e4e4; 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.amano-dash-container {
+    padding: 20px;
+    margin: 10px;
+    border-style: solid; 
+    width: 100%; 
+    border-width:1px; 
+    border-radius: 5px; 
+    border-color: #e4e4e4; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
