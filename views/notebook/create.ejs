@@ -2,16 +2,14 @@
     <section class="portfolio-block block-intro" style="background: white;">
         <div class="container amano-form-container">
             <div class="data-form">
-                <form action="/account/login" method="POST">
-                    <h2 class="form-signin-heading">Access Account</h2>
+                <form action="<%= `/notes/${id}/save` %>" method="POST">
+                    <h2 class="form-signin-heading">New Note for <%= customer._custFName %></h2>
                     <br />
                     <input class="form-control" type="email" name="email" id="inputEmail" placeholder="Email address"
                         required><br />
-                    <input class="form-control" type="password" name="password" id="inputPassword"
-                        placeholder="Password" required>
                     <br />
                     <div class="text-right">
-                        <button class="btn btn-amano" type="submit">Login</button>
+                        <button class="btn btn-amano" type="submit">Save</button>
                     </div>
                     <br />
                     <br />
