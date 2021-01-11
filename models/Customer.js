@@ -3,6 +3,20 @@
 const mongoose = require("mongoose"),
   { Schema } = mongoose;
 
+const noteSchema = new mongoose.Schema({
+  note: {
+    type: String
+  },
+  dateSaved: {
+    type: Date,
+    default: new Date()
+  },
+  dateUpdated: {
+    type: Date,
+    default: null
+  }
+});
+
 const customerSchema = new mongoose.Schema({
   custFName: {
     type: String,
@@ -47,6 +61,9 @@ const customerSchema = new mongoose.Schema({
   dateJoined: {
     type: Date
   },
+  notes: [
+    {noteSchema}
+  ],
   technician: {
     type: Schema.Types.ObjectId
   },
