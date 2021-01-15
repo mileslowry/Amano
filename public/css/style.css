@@ -239,7 +239,7 @@ tr:nth-child(even) {
 .amano-form-container {
     padding: 20px; 
     border-style: solid; 
-    width: 40%; 
+    width: 350px; 
     border-width:1px; 
     border-radius: 5px; 
     border-color: #e4e4e4; 
