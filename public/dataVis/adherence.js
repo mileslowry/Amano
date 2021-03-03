@@ -5,18 +5,11 @@ const adherenceDonut = new Chart(adherenceScore, {
     data: {
         datasets: [{
             data: [70, 30],
-            backgroundColor: '#23233d'
+            backgroundColor: ['#23233d', '#d3d3d3']
         }]
     },
     options: {
-        title: {
-            display: true,
-            text: 'Adherence',
-            fontSize: 16
-        },
-        legend: {display: false},
-        responsive: true,
-        borderWidth: 15,
-        
+        responsive: false,
+        cutoutPercentage: 80
     }
 })

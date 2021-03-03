@@ -16,109 +16,126 @@
             <br>
             <% let numCustomers=Object.keys(customers).length %>
                 <% if (numCustomers> 0) { %>
-                    <% let i = 0 %>
-                    <!-- START CUSTOMER INFO -->
-                    <% customers.forEach(customer=> { %>
-                        <% let currentAlerts = alerts[i] %>
-                        <% i += 1 %>
-                        <div class="row">
-                            <img class="avatar" src="img/<%= typeof customer.avatar != 'undefined' ? customer.avatar : 'blank_avatar.png' %>">
-                            <div>
-                                <a style="color:black;" href="<%= `/customer/${customer._id}` %>">
-                                    <h1><%= customer.custFName %> <%= customer.custLName %></h1>
-                                </a>
-                                <p><%= customer.address %> &nbsp; | &nbsp; <%= customer.email %> &nbsp; | &nbsp; <%= customer.phone %></p>
-                            </div>
+                    <% let i=0 %>
+                        <!-- START CUSTOMER INFO -->
+                        <% customers.forEach(customer=> { %>
+                            <% let currentAlerts=alerts[i] %>
+                                <% i +=1 %>
+                                    <div class="row">
+                                        <img class="avatar"
+                                            src="img/<%= typeof customer.avatar != 'undefined' ? customer.avatar : 'blank_avatar.png' %>">
+                                        <div>
+                                            <a style="color:black;" href="<%= `/customer/${customer._id}` %>">
+                                                <h1>
+                                                    <%= customer.custFName %>
+                                                        <%= customer.custLName %>
+                                                </h1>
+                                            </a>
+                                            <p>
+                                                <%= customer.address %> &nbsp; | &nbsp; <%= customer.email %> &nbsp; |
+                                                        &nbsp; <%= customer.phone %>
+                                            </p>
+                                        </div>
 
-                        </div>
-                        
-                    <!-- END CUSTOMER INFO -->
-                        <!-- START CARD -->
-                        <div class="card" style="background-color:#E7E7E7; border:none;">
-                            <div class="card-body">
-                                <% if (typeof currentAlerts === 'undefined') { %>
-                                    <p>No alerts.</p>
-                                <% } else if (typeof currentAlerts != 'undefined' && (currentAlerts.pHAlert != "Green" || currentAlerts.clAlert != "Green" || currentAlerts.alkAlert != "Green")) { %>
-                                    <h5>Pool needs attention.</h5>
-                                    <div class="row">
-                                        <canvas id="ad-scr" width="50" height ="50" style="display:block; width: 50px; height: 50px;"></canvas>
                                     </div>
-                                    <div class="row">
-                                        <% if (currentAlerts.pHAlert != null && currentAlerts.pHAlert != "Green") { %>
-                                            <div class="alert-tag">
-                                                pH
-                                            </div>
-                                        <% } else { %>
-                                            <div class="safe-tag">
-                                                pH
-                                            </div>
-                                        <% } %>
-                                        <% if (currentAlerts.clAlert != null && currentAlerts.clAlert != "Green") { %>
-                                            <div class="alert-tag">
-                                                Chlorine
-                                            </div>
-                                        <% } else { %>
-                                            <div class="safe-tag">
-                                                Chlorine
-                                            </div>
-                                        <% } %>
-                                        <% if (currentAlerts.alkAlert != null && currentAlerts.alkAlert != "Green") { %>
-                                            <div class="alert-tag">
-                                                Alkalinity
-                                            </div>
-                                        <% } else { %>
-                                            <div class="safe-tag">
-                                                Alkalinity
-                                            </div>
-                                        <% } %>
+
+                                    <!-- END CUSTOMER INFO -->
+                                    <!-- START CARD -->
+                                    <div class="card" style="background-color:#E7E7E7; border:none;">
+                                        <div class="card-body">
+                                            <% if (typeof currentAlerts==='undefined' ) { %>
+                                                <p>No alerts.</p>
+                                                <% } else if (typeof currentAlerts !='undefined' &&
+                                                    (currentAlerts.pHAlert !="Green" || currentAlerts.clAlert !="Green"
+                                                    || currentAlerts.alkAlert !="Green" )) { %>
+                                                    <!-- <h5>Pool needs attention.</h5> -->
+
+                                                    <div class="row">
+                                                        <% if (currentAlerts.pHAlert !=null && currentAlerts.pHAlert
+                                                            !="Green" ) { %>
+                                                            <div class="alert-tag">
+                                                                pH
+                                                            </div>
+                                                            <% } else { %>
+                                                                <div class="safe-tag">
+                                                                    pH
+                                                                </div>
+                                                                <% } %>
+                                                                    <% if (currentAlerts.clAlert !=null &&
+                                                                        currentAlerts.clAlert !="Green" ) { %>
+                                                                        <div class="alert-tag">
+                                                                            Chlorine
+                                                                        </div>
+                                                                        <% } else { %>
+                                                                            <div class="safe-tag">
+                                                                                Chlorine
+                                                                            </div>
+                                                                            <% } %>
+                                                                                <% if (currentAlerts.alkAlert !=null &&
+                                                                                    currentAlerts.alkAlert !="Green" ) {
+                                                                                    %>
+                                                                                    <div class="alert-tag">
+                                                                                        Alkalinity
+                                                                                    </div>
+                                                                                    <% } else { %>
+                                                                                        <div class="safe-tag">
+                                                                                            Alkalinity
+                                                                                        </div>
+                                                                                        <% } %>
+                                                    </div>
+                                                    <% } else { %>
+                                                        <!-- <h5>Pool looks good.</h5> -->
+                                                        <div class="row">
+                                                            <div class="safe-tag">
+                                                                pH
+                                                            </div>
+                                                            <div class="safe-tag">
+                                                                Chlorine
+                                                            </div>
+                                                            <div class="safe-tag">
+                                                                Alkalinity
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+
+                                                            <% if (customer.pools.length===0) { %>
+                                                                <hr />
+                                                                <p>Pool has not been set up yet</p>
+                                                                <% } %>
+
+
+                                        </div>
+                                        <div class="text-right" style="padding:10px;">
+                                            <% let poolLength=Object.keys(customer.pools).length - 1%>
+                                                <% if (customer.pools[poolLength] !=undefined) { %>
+                                                    <a class="btn btn-amano"
+                                                        href="<%= `/dashboard/${customer._id}/${customer.pools[0]._id}` %>">
+                                                        View Dashboard
+                                                    </a>
+                                                    <% } else { %>
+                                                        <a class="btn btn-amano"
+                                                            href="<%= `/dashboard/${customer._id}/add-pool` %>">
+                                                            Add Pool
+                                                        </a>
+                                                        <% } %>
+                                        </div>
                                     </div>
-                                <% } else { %>
-                                    <h5>Pool looks good.</h5>
-                                    <div class="row">
-                                        <div class="safe-tag">
-                                            pH
-                                        </div>
-                                        <div class="safe-tag">
-                                            Chlorine
-                                        </div>
-                                        <div class="safe-tag">
-                                            Alkalinity
-                                        </div>
-                                    </div>
-                                <% } %>
-                                
-                                <% if (customer.pools.length === 0) { %>
-                                    <hr />
-                                    <p>Pool has not been set up yet</p>
-                                <% } %>
-                            </div>
-                            <div class="text-right" style="padding:10px;">
-                                <% let poolLength = Object.keys(customer.pools).length - 1%>
-                                <% if (customer.pools[poolLength] != undefined) { %>
-                                    <a class="btn btn-amano" href="<%= `/dashboard/${customer._id}/${customer.pools[0]._id}` %>">
-                                        View Dashboard
-                                    </a>
-                                <% } else { %>
-                                    <a class="btn btn-amano" href="<%= `/dashboard/${customer._id}/add-pool` %>">
-                                        Add Pool
-                                    </a>
-                                <% } %>
-                            </div>
-                        </div>
-                       <!-- END CARD -->
-                        <a href="<%=`/customer/${customer._id}/edit`%>">
-                            Edit Customer
-                        </a> &nbsp;
-                        <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
-                            onclick="return confirm('Are you sure you want to delete this record?')">Delete Customer</a>
-                        <br /><br /><br />
-                <% }); %>
-        <% } else { %>
-        <p>Hmmm... Couldn't find any clients.</p>
-        <a href="<%= `/customer/new` %>" class="btn btn-lg btn-primary btn-amano">Add a Client</a>
-        <% } %>
-        <br />
-    </div>
+                                    <!-- END CARD -->
+                                    <a href="<%=`/customer/${customer._id}/edit`%>">
+                                        Edit Customer
+                                    </a> &nbsp;
+                                    <a href="<%=`/customer/${customer._id}/delete?_method=DELETE` %>"
+                                        onclick="return confirm('Are you sure you want to delete this record?')">Delete
+                                        Customer</a>
+                                    <br /><br /><br />
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>Hmmm... Couldn't find any clients.</p>
+                                            <a href="<%= `/customer/new` %>"
+                                                class="btn btn-lg btn-primary btn-amano">Add a Client</a>
+                                            <% } %>
+                                                <br />
+        </div>
 
         </div>
     </section>
