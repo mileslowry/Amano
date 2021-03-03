@@ -67,7 +67,11 @@ const customerSchema = new mongoose.Schema({
   technician: {
     type: Schema.Types.ObjectId
   },
-  pools: [{ type: Schema.Types.ObjectId, ref: "Pool", autopopulate: true }]
+  pools: [{ type: Schema.Types.ObjectId, ref: "Pool", autopopulate: true }],
+  avatar: {
+    type: String,
+    default: "blank_avatar.png"
+  }
 });
 
 customerSchema.plugin(require('mongoose-autopopulate'));

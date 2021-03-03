@@ -2,6 +2,7 @@ const Pool = require("../models/Pool");
 const Customer = require("../models/Customer");
 const httpStatus = require("http-status-codes");
 const Dashboard = require("../classes/dashboardClasses");
+const faker = require('faker');
 
 module.exports = {
 
@@ -12,7 +13,7 @@ module.exports = {
 
     //See one customer's pool dashboard
     show: (req, res) => {
-        res.render("dashboard/show-pool");
+        res.render("dashboard/show-pool", {faker: faker});
     },
 
     //Get the data for one pool
@@ -241,7 +242,8 @@ module.exports = {
         try {
             let customers = await User.findById(currentUser._id, "customers").populate("customers");
             res.render('dashboard/index', {
-                customers: customers.customers
+                customers: customers.customers,
+                faker: faker
             });
         } catch (error) {
             console.log(`There's been an error finding customers with indexCustomer: ${error.message}`);
@@ -254,7 +256,8 @@ module.exports = {
         try {
             let customers = await User.findById(currentUser._id, "customers").populate("customers");
             res.render('dashboard/pools-with-alerts', {
-                customers: customers.customers
+                customers: customers.customers,
+                faker: faker
             });
         } catch (error) {
             console.log(`There's been an error finding customers with indexCustomer: ${error.message}`);
@@ -262,7 +265,7 @@ module.exports = {
     },
 
     indexCustomerAlertsView: (req, res) => {
-        res.render('dashboard/pools-with-alerts');
+        res.render('dashboard/pools-with-alerts', {faker: faker});
     },
 
     //Part of Second Phase of Development

@@ -1,9 +1,10 @@
 <!-- The JS files for the charts can be found in public/dataVis-->
 <body>
     <a class="btn btn-amano" style="margin: 15px;" href="/dashboard">Return</a>
-    <section style="background: #ffffff;">
+    <section style="background: white;">
         <div class="text-center">
             <br />
+            <img class="avatar-single" src="/img/<%= typeof customer.avatar != 'undefined' ? customer.avatar : 'blank_avatar.png' %>">
             <h1 style="padding-bottom: 10px; padding-top: 25px;"><%= customer.custLName %> Pool Dashboard</h1>
             <h4><%= customer.address %></h4>
             <h4 style="padding-bottom: 15px;"><%= customer.city %>, <%= customer.state %> <%= customer.zipCode %></h4>
@@ -13,7 +14,7 @@
 
             <% if (pool != undefined) { %>
                 <div class="amano-dash-container">
-                    <h3 style="padding-bottom: 75px; padding-top: 25px;">Current Levels</h3>
+                    <h3 style="padding-bottom: 45px;">Current Levels</h3>
                     <div class="row">
                         <div class="col-sm" id="ph-G" style="width:358px; height:200px;"></div>
                         <div class="col-sm" id="cl-G" style="width:358px; height:200px;"></div>
@@ -21,7 +22,7 @@
                     </div>
                 </div>
                 <div class="amano-dash-container">
-                    <h3 style="padding-bottom: 75px; padding-top: 25px;">Trends</h3>
+                    <h3 style="padding-bottom: 45px;">Trends</h3>
                     <div class="row">
                         <canvas id="ph-T" width="200" height="50" style="padding-left:20px; padding-right:20px;"></canvas>
                     </div>
@@ -36,6 +37,33 @@
                 <h4><i>Need help setting up your device?</i> <a href='/help'>Get help</a></h4> 
             <% } %>
             </div>
+            <div class="amano-dash-container">
+                <h3>Pool Details</h3><br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <img src="/img/swim-pool-dash.jpg" style="height: 250px;">
+                    </div>
+                    <div class="col-lg-4">
+                        <ul>
+                            <li>
+                                <h6>Installed by Concord</h6>
+                            </li>
+                            <li>
+                                <h6>Chlorine Pool</h6>
+                            </li>
+                            <li>
+                                <h6><%= pool.gallons %> Gallons</h6>
+                            </li>
+                            <li>
+                                <h6>Vinyl</h6>
+                            </li>
+                            <li>
+                                <h6>1 Year Warranty</h6>
+                            </li>
+                        </ul>
+                    </div>
+                </div>     
+            </div><br />
         </div>
     </section>
 </body>

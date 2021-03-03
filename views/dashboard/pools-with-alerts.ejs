@@ -26,10 +26,16 @@
                         <% i += 1 %>
                         <% if (currentAlerts.pHAlert != "Green" || currentAlerts.clAlert !="Green" || currentAlerts.alkAlert != "Green") { %>
 
-                        <a style="color:black;" href="<%= `/customer/${customer._id}` %>">
-                            <h1><%= customer.custFName %> <%= customer.custLName %></h1>
-                        </a>
-                        <p><%= customer.address %> &nbsp; | &nbsp; <%= customer.email %> &nbsp; | &nbsp; <%= customer.phone %></p>
+                            <div class="row">
+                                <img class="avatar" src="<%= faker.image.animals() %>">
+                                <div>
+                                    <a style="color:black;" href="<%= `/customer/${customer._id}` %>">
+                                        <h1><%= customer.custFName %> <%= customer.custLName %></h1>
+                                    </a>
+                                    <p><%= customer.address %> &nbsp; | &nbsp; <%= customer.email %> &nbsp; | &nbsp; <%= customer.phone %></p>
+                                </div>
+    
+                            </div>
                         <!-- FOR UPCOMING VERSION -->
                         <!-- <div class="card" style="background-color:#E7E7E7; border:none;">
                             <div class="card-body">

@@ -5,7 +5,6 @@ $(document).ready(() => {
 
     // Request data from API
     $.get(`/api${dashURL}`, (results = {}) => {
-        console.log(results);
         let timeLabels = [];
         let timeSeriesDataPH = [];
         let timeSeriesDataCl = [];

@@ -13,6 +13,8 @@ const createError = require('http-errors'),
   User = require("./models/Account"),
   Routes = require("./routes/index");
 
+require('dotenv').config();
+
 mongoose.connect(
   process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }
@@ -38,6 +40,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(__dirname + '/public/img'));
 
 app.use(
   methodOverride("_method", {
