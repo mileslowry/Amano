@@ -68,7 +68,6 @@ module.exports = {
                                     poolId: pool._id
                                 })
 
-                                console.log(pool);
                         } else {
                             alerts.push({
                                 pHAlert: null,
@@ -80,7 +79,7 @@ module.exports = {
                                 poolId: null
                             })
                         }
-                        console.log(alerts);
+
                         };
                     });
                 res.locals.alerts = alerts;

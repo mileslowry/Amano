@@ -290,13 +290,13 @@ tr:nth-child(even) {
 .alert-tag {
     background-color: #D81F31;
     color: white;
-    width: 200px;
-    height: 50px;
+    width: 150px;
+    height: 40px;
     border-radius: 10px;
     text-align: center;
     vertical-align: middle;
-    line-height: 50px;
-    font-size: xx-large;
+    line-height: 40px;
+    font-size: x-large;
     font-weight: bold;
     margin-left: 10px;
     margin-top: 10px;
@@ -305,22 +305,21 @@ tr:nth-child(even) {
 .safe-tag {
     background-color: #5BABFF;
     color: white;
-    width: 200px;
-    height: 50px;
+    width: 150px;
+    height: 40px;
     border-radius: 10px;
     text-align: center;
     vertical-align: middle;
-    line-height: 50px;
-    font-size: xx-large;
+    line-height: 40px;
+    font-size: x-large;
     font-weight:bold;
     margin-left: 10px;
     margin-top: 10px;
 }
 
-/* .alert-tag:hover {
-    background-color: #7a151f;
-}
-
-.safe-tag:hover {
-    background-color: #30547a;
-} */
+.error {
+    position:relative;
+    top: 200px;
+    justify-content: center;
+    align-content: center;
+  }

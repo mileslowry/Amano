@@ -1,3 +1,9 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<div class="error text-center">
+    <h1><%= error.status === 404 ? 'Page Not Found' : 'Server Error' %></h1>
+    <% if (error.status === 404) { %>
+        <h3>Sorry, we couldn't find a page at that address.</h3>
+    <% } else { %>
+        <h3>It looks like we're having some server problems. Check back soon.</h3>
+    <% } %>
+    <a class="btn btn-lg btn-amano" href="/">Home</a>
+</div>
