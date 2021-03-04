@@ -298,12 +298,16 @@ tr:nth-child(even) {
     line-height: 40px;
     font-size: x-large;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 30px;
     margin-top: 10px;
   }
 
+.right-space {
+    margin-right: 50px;
+}
+
 .safe-tag {
-    background-color: #5BABFF;
+    background-color: #48D81F;
     color: white;
     width: 150px;
     height: 40px;
@@ -313,7 +317,24 @@ tr:nth-child(even) {
     line-height: 40px;
     font-size: x-large;
     font-weight:bold;
-    margin-left: 10px;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.detail-tag {
+    border:solid;
+    border-width: 5px;
+    border-color: #23233d;
+    color: black;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 140px;
+    font-size: x-large;
+    font-weight:bold;
+    margin-left: 30px;
     margin-top: 10px;
 }
 

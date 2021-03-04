@@ -46,9 +46,9 @@
                 <div class="card-body">
                     <div class="row">
                         <% if (customer.custLName === 'Franklin') { %>
-                            <div class="chart-container text-center col-lg-2" style="height: 160px; width: 150px; margin-left: 10px;">
+                            <div class="chart-container text-center col-lg-2 right-space" style="height: 130px; width: 120px; margin-left: 10px;">
                                 <h4>Adherence</h4>
-                                <canvas id="ad-scr" style="width: 150px; height: 150px;"></canvas>
+                                <canvas id="ad-scr" style="width: 125px; height: 125px;"></canvas>
                             </div>
                         <% } %>
                         <div class="col-lg-6">
@@ -99,6 +99,20 @@
                                 </div>
                             </div>
                             <% } %>
+<!-- 
+                            <div class="row">
+                                <div class="read-tag">
+                                    <%= currentAlerts.pHRead %>
+                                </div>
+                                <div class="read-tag">
+                                    <%= currentAlerts.clRead %>
+                                </div>
+                                <div class="read-tag">
+                                    <%= currentAlerts.alkRead %>
+                                </div>
+                                
+        
+                            </div> -->
 
                             <% if (customer.pools.length===0) { %>
                             <p>Device has not been connected yet.</p>
