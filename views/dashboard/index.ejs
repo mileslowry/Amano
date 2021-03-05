@@ -46,12 +46,13 @@
                 <div class="card-body">
                     <div class="row">
                         <% if (customer.custLName === 'Franklin') { %>
-                            <div class="chart-container text-center col-lg-2 right-space" style="height: 130px; width: 120px; margin-left: 10px;">
+                            <div class="chart-container text-center col-lg-2 right-space" style="height: 130px; width: 125px; margin: 10px;">
                                 <h4>Adherence</h4>
                                 <canvas id="ad-scr" style="width: 125px; height: 125px;"></canvas>
                             </div>
                         <% } %>
-                        <div class="col-lg-6">
+
+                        <div class="col-lg-8">
                             <% if (typeof currentAlerts==='undefined' ) { %>
                             <p>Nothing to see...</p>
                             <% } else if (typeof currentAlerts !='undefined' && (currentAlerts.pHAlert !="Green" || currentAlerts.clAlert !="Green" || currentAlerts.alkAlert !="Green" )) { %>
@@ -99,20 +100,10 @@
                                 </div>
                             </div>
                             <% } %>
-<!-- 
-                            <div class="row">
-                                <div class="read-tag">
-                                    <%= currentAlerts.pHRead %>
-                                </div>
-                                <div class="read-tag">
-                                    <%= currentAlerts.clRead %>
-                                </div>
-                                <div class="read-tag">
-                                    <%= currentAlerts.alkRead %>
-                                </div>
-                                
-        
-                            </div> -->
+                            <br />
+                            <div class="row" style="margin-left: 3%;">
+                                <h5><%= Math.floor(Math.random() * Math.floor(364) + 1) %> left on warranty</h5>
+                            </div>
 
                             <% if (customer.pools.length===0) { %>
                             <p>Device has not been connected yet.</p>
